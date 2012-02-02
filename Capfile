@@ -1,10 +1,9 @@
 # Configuration
 
-set :application, "taskboard2"
+set :application, "taskboard"
 set :use_mysql, true
 
 ssh_options[:keys] = File.expand_path('~/keys/mbm-keypair')
-ssh_options[:forward_agent] = true
 
 default_run_options[:pty] = true
 set :deploy_via, :remote_cache
