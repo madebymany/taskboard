@@ -36,7 +36,7 @@ TASKBOARD.utils = {
 	 * and min-height property to keep them expandable.
 	 */  
 	expandColumnsHeight : function(){
-		$("#taskboard ol.cards").equalHeight({ offset : 50, css : "min-height" });
+	/*	$("#taskboard ol.cards").equalHeight({ offset : 50, css : "min-height" });*/
 	},
 
 	/* 
@@ -90,6 +90,9 @@ TASKBOARD.builder.options = {
 			}
 			//TODO: get padding from CSS?
 			ui.helper.width($(ui.item).parent().width() - 25);
+			var column_id = ui.item.parent().parent().data('data').id;
+			var points = ui.item.data("data").points
+			TASKBOARD.api.updateMovedFromColumnPoints(column_id, points);
 		},
 		//.TODO: just a workaround for opacity
 		sort : function(ev, ui){
@@ -176,8 +179,13 @@ TASKBOARD.builder.buildColumnFromJSON = function(column){
 	$.each(column.cards.sortByPosition(), function(i, card){
 		cardsOl.append(TASKBOARD.builder.buildCardFromJSON(card));
 	});
+	var columnPoints = 0;
+	$.each(column.cards.sortByPosition(), function(i, card){
+		columnPoints += card.points;
+	});
 	
 	var header = $.tag("h2", column.name.escapeHTML());
+	header += $.tag("p", "Total Points: " + columnPoints, { id : 'column_' + column.id + '_totalpoints', className :'totalpoints' });
 	var columnLi = "";
 	// edit-mode-only
 	if(TASKBOARD.editor){
@@ -249,7 +257,13 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	cardLi += $.tag("span", '+' + $.tag("span", card.points, { className : 'points' }), { className : 'progress' });
 	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
 
-	if(card.tag_list && card.tag_list.length){
+/* hacked in the card notes. */
+	var notes = card.notes ? (new Showdown.converter()).makeHtml(card.notes.escapeHTML()) : "";
+/*	cardLi += $.tag("dt", "Story", { id : "notes", classname : "notes" }); */
+	cardLi += $.tag("dd", notes, { id : "notes", className : "notes" });
+  
+
+	if(card.tag_list.length){
 		var tagsUl = "";
 		$.each(card.tag_list, function(i, tag){
 			tagsUl += $.tag("li", tag.escapeHTML());
@@ -291,11 +305,9 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 			TASKBOARD.openCard($(this).data('data'));
 		});
 
-	if(card.tag_list && card.tag_list.length){
-		$.each(card.tag_list, function(i, tag){
-			cardLi.addClass('tagged_as_' + tag.toClassName());
-		});
-	}
+	$.each(card.tag_list, function(i, tag){
+		cardLi.addClass('tagged_as_' + tag.toClassName());
+	});
 
 	// edit-mode-only
 	if(TASKBOARD.editor){
@@ -346,7 +358,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 							$(card).data('data').color = color;
 							TASKBOARD.remote.api.changeCardColor($(card).data('data').id, color);
 						 },
-						colors : ['#F8E065', '#FAA919', '#12C2D9', '#FF5A00', '#35B44B','#CCCCCC','#ff0000'],
+						colors : ['#F8E065', '#BBFF44', '#53E36D', '#23C7A1', '#ff7f00', '#25aef5','#CCCCCC','#FF2019'],
 						columns: 5,
 						top : $(this).offset().top - 8,
 						left : $(this).offset().left + 12,
@@ -395,6 +407,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 		tagsForm = $.tag("form", tagsForm, { id : 'tagsForm' });
 		tagsForm = $.tag("dd", tagsForm);
 		cardDl += tagsForm;
+		
 	}
 		
 	cardDl += $.tag("dt", "Points");
@@ -458,6 +471,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 			.editable(function(value, settings){
 					TASKBOARD.remote.api.updateCardNotes(card.id, value);
 					card.notes = value;
+					TASKBOARD.api.updateCard({ card: card }); // redraw small card
 					return value ? (new Showdown.converter()).makeHtml(value.escapeHTML()) : "";
 				}, { height: '200px', width: '100%',
 					 type : 'textarea', submit : 'Save', cancel : 'Cancel', onblur : 'ignore',
@@ -610,7 +624,7 @@ TASKBOARD.api = {
 	},
 
 	moveColumn : function(column){
-		if(column.column){
+		if (column.column) {
 			column = column.column;
 		}
 		var columnLi = $('#column_' + column.id);
@@ -628,16 +642,15 @@ TASKBOARD.api = {
 	 */
 	// FIXME: check column!!!!
 	addCards : function(cards){
-		if (cards.cards) {
-			cards = cards.cards;
-		}
 		$.each(cards, function(i, card){
-			console.log(card);
-			//card = card;
+			if (card.card) {
+				card = card.card;
+			}
 			$("#column_" + card.column_id + " ol.cards").prepend(TASKBOARD.builder.buildCardFromJSON(card));
 		});
 		TASKBOARD.utils.expandTaskboard();
 		TASKBOARD.remote.loading.stop();
+		TASKBOARD.api.updateColumnPoints(card.column_id);
 		TASKBOARD.tags.updateTagsList();
 		TASKBOARD.tags.updateCardSelection();
 	},
@@ -664,6 +677,7 @@ TASKBOARD.api = {
 			}
 		}
 		cardLi.effect('highlight', {}, 1000);
+		TASKBOARD.api.updateColumnPoints(card.column_id);
 		TASKBOARD.utils.expandTaskboard();
 	},
 
@@ -675,6 +689,7 @@ TASKBOARD.api = {
 		cardLi.fadeOut(1000, function(){
 			$(this).remove();
 			TASKBOARD.utils.expandTaskboard();
+			TASKBOARD.api.updateColumnPoints(card.column_id);
 			TASKBOARD.tags.updateTagsList();
 			TASKBOARD.tags.updateCardSelection();
 		});
@@ -706,17 +721,18 @@ TASKBOARD.api = {
 		}
 		$('#card_' + card.id + ' .title')
 			.text(card.name)
-			.effect('highlight', {}, 1000);
+			.effect('highlight', {}, 10000);
 	},
-
+	
 	// TODO: update also big card
 	updateCard : function(card){
-		if(card.card){
+		if (card.card) {
 			card = card.card;
 		}
 		var newCard = TASKBOARD.builder.buildCardFromJSON(card);
 		$('#card_' + card.id).before(newCard).remove();
 		newCard.effect('highlight', {}, 1000);
+		TASKBOARD.api.updateColumnPoints(card.column_id);
 		TASKBOARD.tags.updateTagsList();
 		TASKBOARD.tags.updateCardSelection();
 	},
@@ -734,7 +750,26 @@ TASKBOARD.api = {
 		}
 		var cardLi = $('#card_' + card.id);
 		cardLi.css({ backgroundColor : card.color });
-	}
+	},
+	
+    updateColumnPoints : function(column_id){
+      var columnPoints = 0;
+      $('#column_' + column_id + ' .points').each(function(){
+		columnPoints += parseInt($(this).text());
+      });
+      $('#column_' + column_id + '_totalpoints').text("Total Points: " + columnPoints);
+    },
+    
+    updateMovedFromColumnPoints : function(column_id, points){
+      var columnPoints = 0;
+      $('#column_' + column_id + ' .points').each(function(){
+		columnPoints += parseInt($(this).text());
+      });
+      //HACKY!!
+      columnPoints -= points;
+      columnPoints -= points;
+      $('#column_' + column_id + '_totalpoints').text("Total Points: " + columnPoints);
+    }
 };
 
 /* 
@@ -781,6 +816,18 @@ TASKBOARD.init = function(){
 		$(".actionToggleAll").text("Zoom in");
 	}
 	
+	$(".cssChanger").bind("click", function(ev){
+		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
+		TASKBOARD.form.toggle('#cssChanger');
+		ev.preventDefault();
+	});
+	
+	$(".cardKey").bind("click", function(ev){
+		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
+		TASKBOARD.form.toggle('#cardKey');
+		ev.preventDefault();
+	});
+	
 	$(".actionAddCards").bind("click", function(ev){
 		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
 		TASKBOARD.form.toggle('#fieldsetAddCards');
@@ -819,7 +866,9 @@ TASKBOARD.init = function(){
  */ 
 TASKBOARD.loadFromJSON = function(taskboard){
 	var self = TASKBOARD;
-	taskboard = taskboard;
+	if (taskboard.taskboard) {
+		taskboard = taskboard.taskboard;
+	}
 	self.data = taskboard;
 	var title = $($.tag("span", taskboard.name.escapeHTML(), { className : 'title' }));
 	document.title = taskboard.name.escapeHTML() + " - Taskboard"; 
@@ -876,9 +925,6 @@ TASKBOARD.burndown.render = function(element, data){
 };
 
 TASKBOARD.openCard = function(card){
-	if (card.card) {
-		card = card.card;
-	}
 	$('#card').remove();
 	var bigCard = TASKBOARD.builder.buildBigCard(card);
 	bigCard.appendTo($('body')).hide()
@@ -886,7 +932,6 @@ TASKBOARD.openCard = function(card){
 };
   
 $(document).ready(function() {
-	
 	var self = TASKBOARD;
 	self.init();
 	TASKBOARD.remote.get.taskboardData(self.id, self.loadFromJSON);
@@ -1105,9 +1150,8 @@ TASKBOARD.remote = {
  */
 window.sync = {
 	call : function(action, json, self){
-		/* needs looking at */
 		if(typeof(self) === 'undefined'){ self = false; }
-		var callback = self ? TASKBOARD.remote.checkStatus(json) !== 'success' : true;
+		var callback = !self ? TASKBOARD.remote.checkStatus(json) === 'success' : true;
 		if(callback){
 			$.notify(json.message);
 			TASKBOARD.api[action](json.object);

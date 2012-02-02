@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090722161151) do
+ActiveRecord::Schema.define(:version => 20100331092632) do
 
   create_table "cards", :force => true do |t|
     t.text     "name",                                       :null => false
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(:version => 20090722161151) do
     t.integer  "points",                      :default => 0
   end
 
+  add_index "cards", ["column_id"], :name => "fk_cards_column_id"
+  add_index "cards", ["taskboard_id"], :name => "fk_cards_taskboard_id"
+
   create_table "columns", :force => true do |t|
     t.text     "name",         :null => false
     t.integer  "position"
@@ -35,10 +38,19 @@ ActiveRecord::Schema.define(:version => 20090722161151) do
     t.datetime "updated_at"
   end
 
+  add_index "columns", ["taskboard_id"], :name => "fk_columns_taskboard_id"
+
   create_table "hours", :force => true do |t|
     t.datetime "date",       :null => false
     t.integer  "left",       :null => false
     t.integer  "card_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permissions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "taskboard_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -81,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20090722161151) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_admin"
   end
 
 end

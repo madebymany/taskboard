@@ -33,7 +33,7 @@
 
 #headerBar {
 	position: relative;
-	background-color:#000;
+	background-color:#292D33;
 	color:#CCCCCC;
 	overflow: hidden;
 	clear: both;
@@ -83,17 +83,24 @@
 
 	#actions li {
 		float: left;
-		padding: 7px;
+		padding: 4px;
+		margin-top:2px;
 	}
 
 	#actions li.current {
-		border: 2px solid #457F9F;
-		border-bottom-color: #74AFCF;
-		background-color: #74AFCF; 
-		padding: 5px;
-		-moz-border-radius: 5px 5px 0 0;
+		list-style: none;
+		/*border: 3px solid #666;*/
+		border-bottom-color: #16191C;
+		background-color: #ffcc00; 
+		padding:  4px;
+		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-top-left-radius: 5px 5px;
 		-webkit-border-top-right-radius: 5px 5px;
+		-webkit-border-bottom-left-radius: 5px 5px;
+		-webkit-border-bottom-right-radius: 5px 5px;
+		}
+		#actions li.current a {
+			color: #000;
 		}
 
 	#actions li a {
@@ -102,23 +109,25 @@
 	}
 
 	#actions li a:hover {
-		border-bottom: 1px solid #ffffff;
 	}
-
+ /* the drop down menus --------------------------*/
 #formActions {
 	position: absolute;
+	margin-top:10px;
 	margin-right: 20px;
 	right: 0;
 }
 
 	#formActions fieldset {
-		background-color:#74AFCF;
+		background-color:#16191C;
 		padding: 7px 15px 15px;
-		width: 600px;
-
+		/*width: 600px;*/
+		margin-left:20px;
 		-moz-border-radius: 0 0 5px 5px;
 		-webkit-border-bottom-left-radius: 5px 5px;
 		-webkit-border-bottom-right-radius: 5px 5px;
+		-webkit-border-top-left-radius: 5px 5px;
+		-webkit-border-top-right-radius: 5px 5px;
 	}
 	
 	#formActions fieldset span {
@@ -158,9 +167,10 @@
 }
 
 	#taskboard .column {
+		list-style: none;
 		float: left;
 		padding: 0 7px 0 0;
-		margin: 55px 0 0 7px;
+		margin: 45px 0 0 7px;
 		border-right: 1px dashed #CCCCCC;
 		width: 210px;
 		position: relative;
@@ -184,20 +194,22 @@
 
 		#taskboard .column h2 {
 			text-align: left;
-			margin-bottom: 10px;
+			margin-bottom: 5px;
 			padding-left: 5px;
 			font-weight: bold;
+			color: #000;
 		}
 
 		#taskboard .column h2:hover {
-			background-color: #FFFFD3;
+			/*background-color: #292D33;*/
+			color: #000;
 			cursor: text;
 		}
 		
 		#taskboard .column a.deleteColumn {
 			position: absolute;
-			top: -20px;
-			right: 0px;
+			top: -3px;
+			right: 5px;
 			margin: 3px;
 		}
 
@@ -206,6 +218,7 @@
 		}
 
 			#taskboard .column ol.cards > li {
+				list-style: none;
 				min-height: 25px;
 				margin-bottom: 5px;
 				border: 1px solid transparent;
@@ -217,6 +230,11 @@
 				line-height: 1.4em;
 				-moz-border-radius: 5px;
 				-webkit-border-radius: 5px;
+			}
+			
+			#taskboard .column ol.cards > li li  {
+				list-style-position: inside; 
+				list-style-type: square; 
 			}
 
 				#taskboard .column ol.cards li ul.actions {
@@ -232,6 +250,7 @@
 
 
 					#taskboard .column ol.cards li ul.actions li {
+						list-style: none;
 						min-height: auto;
 						margin-bottom: 2px;
 						border: none;
@@ -256,6 +275,7 @@
 				}
 
 					#taskboard .column ol.cards li ul.tags li {
+						list-style: none;
 						float:left;
 						padding: 2px 3px;
 						margin: 2px 2px 0 0;
@@ -303,9 +323,9 @@
 							}
 
 			#taskboard .column ol.cards li.placeholder {
-				background-color: #FFFFFF;
-				border: 1px dashed #93853C;
+			/*	border: 1px dashed #93853C;*/
 				color: #FFFFFF;
+				background-image: url(/assets/chequer.png); 
 			}
 
 			#taskboard .column ol.cards li.placeholder span,
@@ -358,7 +378,7 @@
 #taskboard.zoom_0 .column ol.cards li {
 	padding: 3px;
 	font-size: 0.6em;
-	height: 1em;
+/*	height: 1em;*/
 }
 
 	#taskboard.zoom_0 .column ol.cards li:hover ul.actions {
@@ -371,7 +391,8 @@
 	}
 
 	#taskboard.zoom_0 .column ol.cards li span.progress,
-	#taskboard.zoom_0 .column ol.cards li ul.tags {
+	#taskboard.zoom_0 .column ol.cards li ul.tags,
+	#taskboard.zoom_0 .column ol.cards li dd.notes {
 		display:none;
 	}
 
@@ -392,14 +413,18 @@
 	}
 
 	#taskboard.zoom_1 .column ol.cards li span.progress,
-	#taskboard.zoom_1 .column ol.cards li ul.tags {
+	#taskboard.zoom_1 .column ol.cards li ul.tags,
+	#taskboard.zoom_1 .column ol.cards li dd.notes,
+	#taskboard.zoom_1 .column ol.cards li dt.smlCard  {
 		display:none;
 	}
 
 /* zoom 2 */
 
 	#taskboard.zoom_2 .column ol.cards li span.progress,
-	#taskboard.zoom_2 .column ol.cards li ul.tags {
+	#taskboard.zoom_2 .column ol.cards li ul.tags,
+	#taskboard.zoom_2 .column ol.cards li dd.notes,
+	#taskboard.zoom_2 .column ol.cards li dt.notes {
 		display:none;
 	}
 
@@ -408,17 +433,58 @@
 	#taskboard.zoom_3 .column ol.cards li ul.tags {
 		display:none;
 	}
-
+	#taskboard.zoom_3 .column ol.cards li dd.notes,
+	#taskboard.zoom_3 .column ol.cards li dt.notes {
+		display:none;
+	}
 /* zoom 4 */
 
 	#taskboard.zoom_4 .column ol.cards li ul.tags {
-		height: 1.8em;
 	}
+	#taskboard.zoom_4 .column ol.cards li dd.notes,
+	#taskboard.zoom_4 .column ol.cards li dt.notes {
+		display:none;
+	}
+	
+/* zoom 5 */
+
+	#taskboard.zoom_5 .column ol.cards li ul.tags {
+		/*height: 1.8em; */
+	}
+	
+	#taskboard .column ol.cards > li h1{
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	#taskboard .column ol.cards > li h2 {
+		font-weight: normal;
+	}
+	#taskboard .column ol.cards > li h3 {
+		font-weight: normal;
+	}
+	#taskboard .column ol.cards > li li {
+	}
+
 
 /* Form drop animation hack */
 .ui-effects-wrapper {
 	left: auto !important;
 	right: 0 !important;
+}
+
+.totalpoints {
+	font-size:.7em;
+	padding: 3px 5px;
+	margin-bottom: 5px;
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	-moz-border-radius:5px;
+/*-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px ;
+	-moz-box-shadow:0px 0px 3px rgba(0, 0, 0, 0.5);*/
+	/*background:#ddd none repeat scroll 0 0;*/
+	color: #000;
+	font-weight:normal;
 }
 
 #tooltip {
@@ -483,7 +549,7 @@
 
 
 #card {
-	position: absolute;
+	position: fixed;
 	top: 50px;
 	left: 50%;
 	margin-left: -400px;
@@ -506,13 +572,19 @@
 
 #card dd {
 	float: right;
-	width: 550px;
+	width: 650px;
 	margin-bottom: 10px;
 }
 
-#card .hovered {
-	background-color: #FFFFD3;
+dl#card dd#notes {
+		overflow: auto; 
 }
+
+#card .hovered {
+	background-color: #d1d1d1;
+}
+
+/* Big Card type style -------------------------- */
 
 #card #notes h1,
 #card #notes h2,
@@ -523,7 +595,11 @@
 	margin-bottom: 0.5em;
 }
 
-#card #notes h1 { font-size: 1.5em; }
+#card #notes h1 {
+	font-size: 1em;
+}
+
+#card #notes h1 { font-size: 1.5em; border-bottom: 1px solid ;}
 #card #notes h2 { font-size: 1.4em; }
 #card #notes h3 { font-size: 1.2em; }
 #card #notes h4 { font-size: 1.1em; }
@@ -556,7 +632,13 @@
 	font-weight: bold;
 }
 
+form #tagsForm {
+	margin:0;
+}
 
+#name, #notes, #points, #tagsForm {
+
+	}
 
 #card #name h1,
 #card #name h2,
@@ -587,6 +669,7 @@
 }
 
 #card .tags li {
+	list-style: none;
 	padding: 5px;
 	margin-right: 5px;
 	border: 1px solid #CCCCCC;
@@ -608,7 +691,18 @@
 		color: #000000;
 	}
 
+#cardKeyWrapper ol, #cssWrapper ol {
+	margin-top: 10px;
+	width: 700px;
+}
 
+#cardKeyWrapper ol li, #cssChanger ol li{
+	margin-right: 0px;
+	display: inline;
+	padding: 5px;
+	font-size: .7em;
+	text-transform: uppercase; 
+}
 
 
 
@@ -671,24 +765,27 @@
 
 #filterTags li {
 	float:left;
+	list-style: none;
 }
 
 #filterTags li a {
+	list-style: none;
 	display: block;
 	padding: 3px;
-	background-color: #CCCCCC;
+	background-color: #666;
 	border: 1px solid #555555;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin: 2px;
 	text-decoration: none;
-	color: #000000;
+	color: #fff;
 }
 
 #filterTags li.current a {
-	background-color: #EEE;
+		list-style: none;
+	background-color: #fff;
 	border: 1px solid #CCC;
-
+color:#000;
 }
 
 /* LEGEND */

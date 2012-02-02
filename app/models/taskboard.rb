@@ -16,8 +16,11 @@
 # along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 
 class Taskboard < ActiveRecord::Base
-  has_many :cards
-  has_many :columns
+  has_many :cards, :dependent => :destroy
+  has_many :columns, :dependent => :destroy
+  
+  has_many :permissions, :dependent => :destroy
+  has_many :users, :through => :permissions
 
   def burndown
     burndown = Hash.new(0)

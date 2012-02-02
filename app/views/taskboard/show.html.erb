@@ -52,6 +52,8 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	<div id="headerBar">
 		<h1><%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboards list", :rel => 'home' %></h1>
 		<ul id="actions">
+		<!--	<li><a class="cssChanger" href="#" title="Style">Style</a></li> -->
+			<li><a class="cardKey" href="#" title="Colours">Key</a></li>
 			<% if session[:editor] -%>
 			<li><a class="actionAddCards" href="#" title="Add some cards to this taskboard">Add cards</a></li>
 			<li><a class="actionAddColumn" href="#" title="Add a column to this taskboard">Add column</a></li>
@@ -62,6 +64,26 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 		</ul>
 	</div>
 		<form id="formActions" action="#">
+			
+		
+			<fieldset id="cardKey">
+				
+				<a class='actionHideForm' href='#' title='Hide'><img src='/assets/hide_off.png' alt='Hide'/></a>
+
+				<div id="cardKeyWrapper">
+					<ol>
+					<li style="color:white;">Card key</li>
+					<li class="color F8E065" style="background-color: #F8E065;">New</li>
+					<li class="color BBFF44" style="background-color: #BBFF44;">In analysis</li>
+					<li class="color 53E36D" style="background-color: #53E36D;">Analysis complete</li>
+					<li class="color 23C7A1" style="background-color: #23C7A1;">Accepted</li>
+					<li class="color ff7f00" style="background-color: #ff7f00;">Epic</li>
+					<li class="color 25aef5" style="background-color: #25aef5;">Process</li>
+					<li class="color CCCCCC" style="background-color: rgb(204, 204, 204);">Out of date</li>
+					<li class="color FF2019" style="background-color: rgb(255, 32, 25);">Important</li>
+					</ol>
+				</div>
+			</fieldset>
 			<fieldset id="fieldsetAddCards">
 				<a class='actionHideForm' href='#' title='Hide'><img src='/assets/hide_off.png' alt='Hide'/></a>
 				<label for="inputAddCards">Type a card title, JIRA issue or paste a filter URL:</label>
