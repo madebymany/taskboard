@@ -1,0 +1,15 @@
+{
+  "rails_app": {
+    "domain_aliases": [],
+    "database": {
+      "host":      "taskboard.cpmpbi2kebje.us-east-1.rds.amazonaws.com",
+      "username":  "madebymany",
+      "password":  "1toomany",
+      "database":  "taskboard"
+    },
+    "s3": {
+      "bucket_name":       ""
+    }
+  }
+}
+

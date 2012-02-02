@@ -11,3 +11,6 @@ assets_lock
 db/*.sqlite3-journal
 db/sphinx
 coverage
+
+/deploy/chef/dna/generated.json
+/deploy/chef/dna/aliases.json

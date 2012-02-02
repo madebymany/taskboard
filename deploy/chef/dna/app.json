@@ -1,0 +1,6 @@
+{
+  "recipes": [
+    "mysql::client",
+    "rails_app"
+  ]
+}

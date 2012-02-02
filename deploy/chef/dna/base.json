@@ -1,0 +1,37 @@
+{
+  "rails_app": {
+    "user": "rails",
+    "name": "taskboard",
+    "home": "/mnt/taskboard",
+    "packages": [
+      "git-core",
+      "libxml2-dev",
+      "libxslt1-dev"
+    ],
+    "canonical_domain": "taskboard.mxmdev.com",
+    "domain_aliases": [
+      "taskboard.mxmdev.com"
+    ],
+    "redirections": [
+      ""
+    ],
+    "database": {
+      "adapter":   "mysql2",
+      "encoding":  "utf8",
+      "collation": "utf8_general_ci"
+    },
+    "s3": {
+      "access_key_id":     "",
+      "secret_access_key": ""
+    }
+  },
+  "apache": {
+    "listen_ports": ["80"]
+  },
+  "passenger": {
+    "version": "3.0.7"
+  },
+  "recipes": [
+    "hosts"
+  ]
+}
