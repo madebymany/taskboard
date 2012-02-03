@@ -1,0 +1,1 @@
+JUGGERNAUT_CONFIG = YAML.load_file("#{Rails.root}/config/juggernaut_hosts.yml")
