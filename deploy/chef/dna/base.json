@@ -10,7 +10,8 @@
     ],
     "canonical_domain": "taskboard.mxmdev.com",
     "domain_aliases": [
-      "ec2-23-20-61-37.compute-1.amazonaws.com"
+      "ec2-23-20-61-37.compute-1.amazonaws.com",
+      "taskboard2.mxmdev.com"
     ],
     "redirections": [
       ""
