@@ -649,11 +649,12 @@ TASKBOARD.api = {
 			if (card.card) {
 				card = card.card;
 			}
+			card.tag_list = [];
 			$("#column_" + card.column_id + " ol.cards").prepend(TASKBOARD.builder.buildCardFromJSON(card));
+			TASKBOARD.api.updateColumnPoints(card.column_id);
 		});
 		TASKBOARD.utils.expandTaskboard();
 		TASKBOARD.remote.loading.stop();
-		TASKBOARD.api.updateColumnPoints(card.column_id);
 		TASKBOARD.tags.updateTagsList();
 		TASKBOARD.tags.updateCardSelection();
 	},
