@@ -231,6 +231,9 @@
 				-moz-border-radius: 5px;
 				-webkit-border-radius: 5px;
 			}
+			#taskboard .column ol.cards > li:hover {
+				min-height: 40px;
+			}
 			
 			#taskboard .column ol.cards > li li  {
 				list-style-position: inside; 

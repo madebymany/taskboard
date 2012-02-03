@@ -289,6 +289,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 		var changeColorAction = $.tag("a", "<img src='/assets/color_off.png' alt='Change the color'/>", { className : "changeColor", title : "Change the color", href : "#" });
 		changeColorAction = $.tag("li", changeColorAction);
 
+		actionsUl += openCardAction;
 		actionsUl += deleteCardAction;
 		actionsUl += changeColorAction;
 
