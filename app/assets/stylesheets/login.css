@@ -46,20 +46,21 @@ fieldset dl dt {
 	float: left;
 	clear: left;
 	margin-bottom: 10px;
+	padding-top: 5px;
 }
 
 fieldset dl dd {
-	width: 300px;
+	width: 370px;
 	float: left;
-	margin-bottom: 10px;
 }
 
 fieldset dl dd input {
-	width: 100%;
+	width: 370px;
 }
 
-fieldset input[type=submit] {
-	float:right;
+fieldset input[type=submit], fieldset button {
+	clear: both;
+	margin-left: 105px;
 }
 
 #notice {

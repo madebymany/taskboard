@@ -17,10 +17,21 @@
  * along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
  */
 
+body {
+	background: #FFF;
+	padding-top: 10px;
+    padding-bottom: 40px;
+}
+
 .container {
 	height:100%;
 	padding-left: 10px;
 	width: auto !important;
+}
+
+header h1 input[type="text"], header h1 form {
+	margin: 0px;
+	padding: 0px;
 }
 
 #header {
@@ -72,7 +83,8 @@
 			border:1px solid #CCCCCC;
 			font-family:Trebuchet,Tahoma,Arial,sans-serif;
 			font-size:1em;
-			padding:0 5px 0 2px;
+			line-height: 1em;
+			padding: 0px;
 		}
 
 #actions {
@@ -499,6 +511,7 @@
 
 
 #notifications {
+	list-style: none;
 	position : fixed;
 	bottom : 0;
 	right : 0;
@@ -534,7 +547,7 @@
 }
 
 
-#card {
+#card1 {
 	position: fixed;
 	top: 50px;
 	left: 50%;
@@ -547,6 +560,21 @@
 	-webkit-border-radius : 5px;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 5px;
 	-moz-box-shadow:0px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+	left: 50%;
+	margin-left: -380px;
+	width: 760px;
+}
+
+#card button[type="cancel"] {
+	margin-left: 5px;
+}
+
+#card {
+	margin: 0px;
+	overflow: hidden;
 }
 
 #card dt {
@@ -618,13 +646,17 @@ dl#card dd#notes {
 	font-weight: bold;
 }
 
+#card .tags {
+	margin: 0px;
+}
+
 form #tagsForm {
 	margin:0;
 }
 
 #name, #notes, #points, #tagsForm {
 	margin: 0px;
-	}
+}
 
 #card #name h1,
 #card #name h2,
@@ -676,6 +708,14 @@ form #tagsForm {
 	#card .tags li a:hover {
 		color: #000000;
 	}
+
+#card #points select {
+	width: 60px;
+}
+#card #points button {
+	margin-left: 5px;
+	vertical-align: top;
+}
 
 #cardKeyWrapper ol, #cssWrapper ol {
 	margin-top: 10px;

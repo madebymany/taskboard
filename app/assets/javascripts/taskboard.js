@@ -376,6 +376,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 
 TASKBOARD.builder.buildBigCard = function(card){
 	var cardDl = "";
+
 	if(card.issue_no) {
 		cardDl +=  $.tag("dt", "Issue");
 		cardDl +=  $.tag("dd", card.issue_no.escapeHTML());
@@ -383,6 +384,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 		cardDl +=  $.tag("dt", "URL");
 		cardDl +=  $.tag("dd", $.tag("a", card.url, { href : card.url, rel : 'external' }));
 	}
+
 	cardDl += $.tag("dt", "Name");
 	cardDl += $.tag("dd", card.name.escapeHTML(), { id : "name", className : "editable" });
 
@@ -419,7 +421,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 
 	cardDl = $.tag("dl", cardDl, { id : 'card' });
 
-	var bigCard = $(cardDl).css({ backgroundColor : card.color });
+	var bigCard = $(cardDl); //.css({ backgroundColor : card.color });
 
 	// edit-mode-only
 	if(TASKBOARD.editor){
@@ -465,7 +467,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 					card.name = value;
 					TASKBOARD.api.updateCard({ card: card }); // redraw small card
 					return value.escapeHTML();
-				}, { height: 'none', width: '100%',
+				}, { height: 'none', width: '98%',
 					 submit : 'Save', cancel : 'Cancel', onblur : 'ignore',
 					 data : function(){ return $(this).closest('dl').data('data').name; } })
 			.bind("mouseenter.editable", function(){ if($(this).find("form").length){ return; } $(this).addClass("hovered"); })
@@ -477,21 +479,21 @@ TASKBOARD.builder.buildBigCard = function(card){
 					card.notes = value;
 					TASKBOARD.api.updateCard({ card: card }); // redraw small card
 					return value ? (new Showdown.converter()).makeHtml(value.escapeHTML()) : "";
-				}, { height: '200px', width: '100%',
+				}, { height: '200px', width: '98%',
 					 type : 'textarea', submit : 'Save', cancel : 'Cancel', onblur : 'ignore',
 					 data : function(){ return $(this).closest('dl').data('data').notes; } })
 			.bind("mouseenter.editable", function(){ if($(this).find("form").length){ return; } $(this).addClass("hovered"); })
 			.bind("mouseleave.editable", function(){ $(this).removeClass("hovered"); });
 
-    var pointsData = function(){
-      var current = $(this).closest('dl').data('data').points;
-      var res = {}
-      for (var i=0; i < 15; i++) {
-        res[i] = i;
-      };
-      res['selected'] = current;
-      return(res);
-    }
+	    var pointsData = function(){
+	      var current = $(this).closest('dl').data('data').points;
+	      var res = {}
+	      for (var i=0; i < 15; i++) {
+	        res[i] = i;
+	      };
+	      res['selected'] = current;
+	      return(res);
+	    }
     
 		bigCard.find('#points')
 			.editable(function(value, settings){
@@ -876,6 +878,7 @@ TASKBOARD.loadFromJSON = function(taskboard){
 	}
 	self.data = taskboard;
 	var title = $($.tag("span", taskboard.name.escapeHTML(), { className : 'title' }));
+	title.addClass("brand");
 	document.title = taskboard.name.escapeHTML() + " - Taskboard"; 
 	if(TASKBOARD.editor){
 		title.editable(function(value, settings){ 
@@ -885,7 +888,7 @@ TASKBOARD.loadFromJSON = function(taskboard){
 						}, { event : "dblclick", data : function(){ return TASKBOARD.data.name; } })
 						.attr("title", TASKBOARD.builder.strings.columnHeaderTitle);
 	}
-	$("#header h1").append(" ").append(title);
+	$("header h1").append(" ").append(title);
 
 	$("#taskboard").html("");
 	$.each(taskboard.columns.sortByPosition(), function(i, column){
@@ -932,8 +935,9 @@ TASKBOARD.burndown.render = function(element, data){
 TASKBOARD.openCard = function(card){
 	$('#card').remove();
 	var bigCard = TASKBOARD.builder.buildBigCard(card);
-	bigCard.appendTo($('body')).hide()
-		.openOverlay({ zIndex: 1001 });
+
+	bigCard.appendTo($('.modal-body'));
+	$('.modal').modal('show');
 };
   
 $(document).ready(function() {

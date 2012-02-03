@@ -22,6 +22,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>Taskboard: login page</title>
+		<%= stylesheet_link_tag 'bootstrap' %>
 		<%= stylesheet_link_tag 'login' %>
 	</head>
 	<body>
@@ -37,7 +38,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 			<dt><label for="password">Password:</label></dt>
 			<dd><%= password_field_tag :password, params[:password] %></dd>
 		</dl>
-		<%= submit_tag "Do me!" %>
+		<%= button_tag "Login", :class => "btn btn-primary" %>
 		</fieldset>
 		<% end %>
 	</body>

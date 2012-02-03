@@ -22,12 +22,6 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 <head>
 	<title>Taskboard</title>
 	<%= stylesheet_link_tag 'bootstrap' %>
-	<style type="text/css">
-      body {
-        padding-top: 10px;
-        padding-bottom: 40px;
-      }
-    </style>
 	<%= stylesheet_link_tag 'taskboard' %>
 	<%= stylesheet_link_tag 'print', :media => "print" %>
 	<!-- TODO: pack jQuery and plugins for production -->
@@ -59,7 +53,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	</script>
 </head>
 <body>
-
+	<header>
 	<div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -68,7 +62,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboards list", :rel => 'home', :class => 'brand' %>
+          <h1><%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboards list", :rel => 'home', :class => 'brand' %></h1>
           <div class="nav-collapse">
             <ul id="actions" class="nav">
               	<li><a class="cardKey" href="#" title="Colours">Key</a></li>
@@ -92,7 +86,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
         </div>
       </div>
     </div>
-
+    </header>
 		<form id="formActions" action="#">
 			
 		
@@ -140,6 +134,19 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 		<li><!-- just to make it valid --></li>
 	</ol>
 
+
+
+	</div>
+
+	<div class="modal" style="display: none;">
+	    <div class="modal-header">
+	    <a class="close" data-dismiss="modal">×</a>
+	    <h3>Editing card</h3>
+	    </div>
+	    <div class="modal-body">
+	    
+	    </div>
+	    
 	</div>
 
 </body>
