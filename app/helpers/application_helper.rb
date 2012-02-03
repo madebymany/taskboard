@@ -35,4 +35,8 @@ module ApplicationHelper
   def current_user
     User.find_by_id(session[:user_id]) unless session[:user_id].nil?
   end
+
+  def juggernaut_js
+    "http://#{ JUGGERNAUT_CONFIG[:hosts].select { |h| h[:environment] == Rails.env.to_sym }.first[:public_host] }:#{ JUGGERNAUT_CONFIG[:hosts].select { |h| h[:environment] == Rails.env.to_sym }.first[:public_port] }/application.js"
+  end
 end
