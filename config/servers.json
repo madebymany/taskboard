@@ -1,6 +1,6 @@
 {
   "staging": {
-    "TODO e.g. something.amazonaws.com": {
+    "ec2-23-20-61-37.compute-1.amazonaws.com": {
       "roles": ["app", "db", "staging"],
       "alias": "staging"
     }
