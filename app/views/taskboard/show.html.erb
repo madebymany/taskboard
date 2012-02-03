@@ -70,16 +70,20 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
           </a>
           <%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboards list", :rel => 'home', :class => 'brand' %>
           <div class="nav-collapse">
-            <ul class="nav">
+            <ul id="actions" class="nav">
               	<li><a class="cardKey" href="#" title="Colours">Key</a></li>
-              
 				<% if session[:editor] -%>
 				<li><a class="actionAddCards" href="#" title="Add some cards to this taskboard">Add cards</a></li>
 				<li><a class="actionAddColumn" href="#" title="Add a column to this taskboard">Add column</a></li>
 				<% end -%>
 				<li><a class="actionShowTagSearch" href="#" title="Filter cards by tags">Tags</a></li>
 				<li><a class="actionToggleAll" href="#" title="Zoom cards view">Zoom</a></li>
-				<li class="user"><%= link_to "Logout", { :controller => "login", :action => "logout" }, :title => "Logout from Taskboard app" %></li>
+				<li class="user">
+					<a href="javascript:void(0);"><span title="You are logged in as '<%= session[:user].username %>' user">You are logged in as <%= session[:user].username %>,</span></a>
+				</li>
+				<li class="user">
+					<%= link_to "Logout", { :controller => "login", :action => "logout" }, :title => "Logout from Taskboard app" %>
+				</li>
             </ul>
           </div>
         </div>

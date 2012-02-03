@@ -76,40 +76,10 @@
 		}
 
 #actions {
-	font-size: 0.8em;
-	padding: 0 10px;
+
 	float: right;
 }
 
-	#actions li {
-		float: left;
-		padding: 4px;
-		margin-top:2px;
-	}
-
-	#actions li.current {
-		list-style: none;
-		/*border: 3px solid #666;*/
-		border-bottom-color: #16191C;
-		background-color: #ffcc00; 
-		padding:  4px;
-		-moz-border-radius: 5px 5px 5px 5px;
-		-webkit-border-top-left-radius: 5px 5px;
-		-webkit-border-top-right-radius: 5px 5px;
-		-webkit-border-bottom-left-radius: 5px 5px;
-		-webkit-border-bottom-right-radius: 5px 5px;
-		}
-		#actions li.current a {
-			color: #000;
-		}
-
-	#actions li a {
-		text-decoration: none;
-		color: #ffffff;
-	}
-
-	#actions li a:hover {
-	}
  /* the drop down menus --------------------------*/
 #formActions {
 	position: absolute;
