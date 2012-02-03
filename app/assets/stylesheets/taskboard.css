@@ -234,6 +234,13 @@
 			#taskboard .column ol.cards > li:hover {
 				min-height: 40px;
 			}
+			.iphone #taskboard .column ol.cards > li:hover {
+				min-height: 65px;
+			}
+			.iphone #taskboard .column ol.cards > li:hover img {
+				height: 20px;
+				width: 20px;
+			}
 			
 			#taskboard .column ol.cards > li li  {
 				list-style-position: inside; 
