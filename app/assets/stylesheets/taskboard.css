@@ -17,10 +17,10 @@
  * along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-@import url(generic.css);
-
-#container {
+.container {
 	height:100%;
+	padding-left: 10px;
+	width: auto !important;
 }
 
 #header {
@@ -113,7 +113,7 @@
  /* the drop down menus --------------------------*/
 #formActions {
 	position: absolute;
-	margin-top:10px;
+	margin-top: 40px;
 	margin-right: 20px;
 	right: 0;
 }
@@ -163,6 +163,7 @@
 
 #taskboard {
 	clear:both;
+	margin-left: 0px;
 	overflow:hidden;
 }
 
@@ -196,6 +197,8 @@
 			text-align: left;
 			margin-bottom: 5px;
 			padding-left: 5px;
+			font-size: 16px;
+			line-height: 16px;
 			font-weight: bold;
 			color: #000;
 		}
@@ -214,6 +217,7 @@
 		}
 
 		#taskboard .column ol.cards {
+			margin-left: 0px;
 			min-height:200px;
 		}
 
@@ -647,7 +651,7 @@ form #tagsForm {
 }
 
 #name, #notes, #points, #tagsForm {
-
+	margin: 0px;
 	}
 
 #card #name h1,
@@ -770,6 +774,7 @@ form #tagsForm {
 
 #filterTags {
 	overflow: hidden;
+	margin-left: 0px;
 	clear: both;
 }
 
