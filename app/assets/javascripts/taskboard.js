@@ -263,7 +263,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	cardLi += $.tag("dd", notes, { id : "notes", className : "notes" });
   
 
-	if(card.tag_list.length){
+	if(card.tag_list && card.tag_list.length){
 		var tagsUl = "";
 		$.each(card.tag_list, function(i, tag){
 			tagsUl += $.tag("li", tag.escapeHTML());
@@ -304,10 +304,11 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 		.bind("dblclick", function(){
 			TASKBOARD.openCard($(this).data('data'));
 		});
-
+	if(card.tag_list && card.tag_list.length){
 	$.each(card.tag_list, function(i, tag){
 		cardLi.addClass('tagged_as_' + tag.toClassName());
 	});
+	}
 
 	// edit-mode-only
 	if(TASKBOARD.editor){
