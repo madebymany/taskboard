@@ -390,6 +390,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 	cardDl += $.tag("dd", notes, { id : "notes", className : "editable" });
 
 	var tagsUl = "";
+	if(card.tag_list && card.tag_list.length){
 	$.each(card.tag_list, function(){
 		var tagLi = $.tag("span", this.escapeHTML(), { className : "tag" });
 		if(TASKBOARD.editor){
@@ -397,6 +398,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 		}
 		tagsUl += $.tag("li", tagLi);
 	});
+	}
 	tagsUl = $.tag("ul", tagsUl, { className : 'tags' });
 
 	cardDl += $.tag("dt", "Tags");
@@ -1152,7 +1154,7 @@ TASKBOARD.remote = {
 window.sync = {
 	call : function(action, json, self){
 		if(typeof(self) === 'undefined'){ self = false; }
-		var callback = !self ? TASKBOARD.remote.checkStatus(json) === 'success' : true;
+		var callback = self ? TASKBOARD.remote.checkStatus(json) !== 'success' : true;
 		if(callback){
 			$.notify(json.message);
 			TASKBOARD.api[action](json.object);
