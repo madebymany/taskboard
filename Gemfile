@@ -9,6 +9,9 @@ gem 'sqlite3'
 
 gem 'json'
 
+gem 'execjs'
+gem 'therubyracer'
+
 gem 'juggernaut'
 gem 'acts_as_list'
 
