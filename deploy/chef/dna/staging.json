@@ -2,13 +2,13 @@
   "rails_app": {
     "domain_aliases": [],
     "database": {
-      "host":      "TODO",
-      "username":  "TODO",
-      "password":  "TODO",
-      "database":  "TODO"
+      "host":      "taskboard.cpmpbi2kebje.us-east-1.rds.amazonaws.com",
+      "username":  "madebymany",
+      "password":  "1toomany",
+      "database":  "taskboard"
     },
     "s3": {
-      "bucket_name":       "TODO"
+      "bucket_name":       ""
     }
   }
 }
