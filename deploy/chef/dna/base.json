@@ -24,7 +24,12 @@
     "s3": {
       "access_key_id":     "",
       "secret_access_key": ""
-    }
+    },
+    "other_configs": {
+      "redis": {
+        "url": "redis://127.0.0.1:6379"
+      },
+    },
   },
   "apache": {
     "listen_ports": ["80"]
