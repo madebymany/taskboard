@@ -35,10 +35,9 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 
 <h2>New user</h2>
 
-<%= form_for(@user) do |f| %>
+<%= form_for(@user) do |f| -%>
   <%= f.error_messages %>
 
-<% form_for @user do |f| -%>
   <p><label for="login">Login</label><br/>
 	<%= f.text_field :username %></p>
 
@@ -71,9 +70,6 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	</p>
 
   <p><%= submit_tag 'Create' %></p>
-<% end %>
-
-
 <% end %>
 
 <%= link_to 'Back to admin', users_path %>
