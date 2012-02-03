@@ -3,6 +3,7 @@
     "mysql::client",
     "rails_app",
     "nodejs",
+    "monit",
     "redis::server"
   ]
 }
