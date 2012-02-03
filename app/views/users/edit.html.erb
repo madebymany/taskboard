@@ -36,7 +36,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 
 <%= error_messages_for :user %>
 
-<% form_for @user do |f| -%>
+<%= form_for @user do |f| -%>
   <p><label for="login">Login</label><br/>
   <%= f.text_field :username %></p>
 
