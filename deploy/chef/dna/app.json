@@ -1,6 +1,8 @@
 {
   "recipes": [
     "mysql::client",
-    "rails_app"
+    "rails_app",
+    "nodejs",
+    "redis::server"
   ]
 }
