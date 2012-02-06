@@ -1,0 +1,79 @@
+<%= f.error_messages %>
+
+<fieldset>
+    <legend>User details</legend>
+    <div class="control-group">
+      <label for="login" class="control-label">Login</label>
+      <div class="controls">
+        <%= f.text_field :username %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="email" class="control-label">Email</label>
+      <div class="controls">
+        <%= f.text_field :email, :autocomplete => 'off' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="password" class="control-label">Password</label>
+      <div class="controls">
+        <%= f.password_field :password, :value => '', :autocomplete => 'off' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="password_confirmation" class="control-label">Confirm Password</label>
+      <div class="controls">
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>
+    
+  </fieldset>
+  <fieldset>
+    <legend>Permissions</legend>
+
+
+     <div class="control-group">
+      <label for="editor" class="control-label">Editor</label>
+      <div class="controls">
+        <%= f.check_box :editor %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="is_admin" class="control-label">Admin?</label>
+      <div class="controls">
+        <%= f.check_box :is_admin %>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Taskboard access</legend>
+    <div class="control-group">
+      <label for="password_confirmation" class="control-label"></label>
+      <div class="controls">
+        
+        
+          <% Taskboard.all.each do |taskboard| %>
+            <label for="">
+              <%= check_box_tag("user[taskboard_ids][]", taskboard.id, @user.has_permission?(taskboard)) %>
+              <%= taskboard.name %>
+            </label>
+    	    <% end %>
+
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <% if f.object.new_record? %>
+      <%= button_tag 'Create', :class => 'btn btn-primary' %>
+    <% else %>
+      <%= button_tag 'Save', :class => 'btn btn-primary' %>
+    <% end %>
+    <%= link_to 'Cancel', users_path, :class => 'btn' %>
+  </div>

@@ -9,9 +9,27 @@
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<div class="container">
+
+<div class="navbar">
+  	<div class="navbar-inner">
+    	<div class="container">
+     		<%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboard list", :rel => 'home', :class => "brand" %>
+     	</div>
+  	</div>
+</div>
+
+<div id="content">
+
+<% if flash[:notice] %>
+<div class="alert alert-success">
+<%= flash[:notice] %>
+</div>
+<% end %>
 
 <%= yield %>
+
+</div>
 
 </body>
 </html>
