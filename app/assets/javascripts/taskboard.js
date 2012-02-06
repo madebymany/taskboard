@@ -253,8 +253,8 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	if(card.issue_no){
 		cardLi += $.tag('span', $.tag('a', card.issue_no, { href : card.url, rel : 'external'}) + ": ",	{ className : 'alias' });
 	}
-	cardLi += $.tag("span", '#' + card.id, { className : 'cardNum' } );
-	cardLi += $.tag("span", '+' + $.tag("span", card.points, { className : 'points' }), { className : 'progress' });
+	cardLi += $.tag("span", '#' + card.id, { className : 'label' } );
+	cardLi += $.tag("span", $.tag("span", card.points, { className : 'label label-important' }), { className : '' });
 	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
 
 /* hacked in the card notes. */
@@ -266,7 +266,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	if(card.tag_list && card.tag_list.length){
 		var tagsUl = "";
 		$.each(card.tag_list, function(i, tag){
-			tagsUl += $.tag("li", tag.escapeHTML());
+			tagsUl += $.tag("li", tag.escapeHTML(), { className : 'label' });
 		});
 		tagsUl = $.tag("ul", tagsUl, { className : 'tags', id : 'filterTags' });
 		cardLi += tagsUl;
@@ -360,7 +360,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 							$(card).data('data').color = color;
 							TASKBOARD.remote.api.changeCardColor($(card).data('data').id, color);
 						 },
-						colors : ['#F8E065', '#BBFF44', '#53E36D', '#23C7A1', '#ff7f00', '#25aef5','#CCCCCC','#FF2019'],
+						colors : ['#E0B4A4', '#93CFC5', '#F2F1A0', '#B5ACC2', '#A3C4BD', '#aaa','#ffff00','#666'],
 						columns: 5,
 						top : $(this).offset().top - 8,
 						left : $(this).offset().left + 12,
@@ -395,7 +395,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 	var tagsUl = "";
 	if(card.tag_list && card.tag_list.length){
 	$.each(card.tag_list, function(){
-		var tagLi = $.tag("span", this.escapeHTML(), { className : "tag" });
+		var tagLi = $.tag("span", this.escapeHTML(), { className : "label" });
 		if(TASKBOARD.editor){
 			tagLi += $.tag("a", "X", { className : "deleteTag", href : "#" });
 		}
@@ -445,7 +445,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 			// TODO: wait for response?
 			$("#tags ul").html("");
 			$.each(card.tag_list, function(){
-				var tagLi = $.tag("span", this.escapeHTML(), { className : "tag" }) +
+				var tagLi = $.tag("span", this.escapeHTML(), { className : "label" }) +
 							$.tag("a", "X", { className : "deleteTag", href : "#" });
 				$("#tags ul").append($.tag("li", tagLi));
 				$("#tags .deleteTag").bind('click',function(){

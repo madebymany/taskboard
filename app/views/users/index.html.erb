@@ -22,11 +22,12 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Taskboard: User list</title>
-	<%= stylesheet_link_tag 'admin' %>
+	<%= stylesheet_link_tag 'bootstrap' %>
 </head>
 
 
-
+<body>
+  <div class="container">
 <h1>
 	<%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboard list", :rel => 'home', :class => "logo" %>
 </h1>
@@ -62,5 +63,6 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 <%= link_to 'Create new user!', new_user_path %>
 
 </div>
-
+</div>
+</body>
 

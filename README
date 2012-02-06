@@ -7,3 +7,10 @@ http://taskboard.cognifide.com
 Copyright (c) 2008-2009 Cognifide
 http://www.cognifide.com
 
+This is a really useful command when setting up the DB for the first time...
+
+# Run the following in script/console
+# Replace the details with the values you need.
+#
+u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)
+u.save!

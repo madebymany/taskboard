@@ -16,9 +16,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 -%>
-<li>
-	<%= link_to truncate(h(taskboard.name), :length => 35), { :controller => 'taskboard', :action => 'show', :id => taskboard }, :title => "Go to '#{h(taskboard.name)}'" %>
+<p style="margin-top:10px; margin-bottom: 10px">
+	<%= link_to truncate(h(taskboard.name), :length => 35), { :controller => 'taskboard', :action => 'show', :id => taskboard }, :class => "btn", :title => "Go to '#{h(taskboard.name)}'" %>
 	<% if current_user.is_admin %>
-	<span class="delete_link">(<%= link_to "Delete", { :controller => 'taskboard', :action => 'destroy', :id => taskboard }, :confirm => "Are you sure you REALLY, REALLY want to delete '#{h(taskboard.name)}'?\n\n This cannot be undone." %>)</span>
+	
+	<span class="delete_link"><%= link_to "x", { :controller => 'taskboard', :action => 'destroy', :id => taskboard }, :class => "btn-primary btn-danger btn", :confirm => "Are you sure you REALLY, REALLY want to delete '#{h(taskboard.name)}'?\n\n This cannot be undone." %></span>
+	
 	<% end %>
-</li>
+</p>

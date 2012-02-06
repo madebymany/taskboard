@@ -21,40 +21,54 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<title>Taskboards</title>
-	<%= stylesheet_link_tag 'home' %>
+	<%= stylesheet_link_tag 'bootstrap' %>
 </head>
 
-<body id="home">
-
-	<h1>
-		<%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboard list", :rel => 'home', :class => "logo" %>
-	</h1>
-<p class="error"><%= flash[:error] %></p>
-<ul class="actions">
-<li>
-	<h2>Choose a taskboard from a list:</h2>
-	<ul id="taskboards">
-	<%= render :partial => 'taskboard', :collection => @taskboards %>
-	</ul>
-</li>
-<% if session[:editor] -%>
-<li>
-	<h2>Do a new taskboard:</h2>
-	<form action="/taskboard/add_taskboard" method="get">
-	<fieldset>
-		<label for="name">Type a name of new taskboard:</label>
-		<input type="text" id="name" name="name" /><input type="submit" value="Add"/>
+<body>
+  <div class="container">
+    
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          
+            <%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboard list", :rel => 'home', :class => "brand" %>
+         
+          
+        		
+        </div>
+      </div>
+    </div>
+  <div class="page-header">
+  <h1>Welcome to Taskboard</h1>
+  </div>
+  <p class="error"><%= flash[:error] %></p>
+  
+  <h2>Choose a taskboard from a list</h2>
+  
+  	<%= render :partial => 'taskboard', :collection => @taskboards %>
+  
+  <% if session[:editor] -%>
+  
+  <br>
+  
+  	<form action="/taskboard/add_taskboard" method="get" class='well'>
+  	  <h2>Do a new taskboard</h2>
+  	<fieldset>
+  		<label form="name">Type a name of new taskboard</label>
+  		<input type="text" id="name" name="name" />
+  		<input type="submit" value="Add" class="btn"/>
 		
-	</fieldset>
-	</form>
-</li>
-<% if current_user.is_admin? %>
-<li>
-	<h2>User management</h2>
-	<h2><%= link_to 'Yes please!', users_path %></h2>
-</li>
-<% end %>
-<% end -%>
-</ul>
+  	</fieldset>
+  	</form>
+
+  <% if current_user.is_admin? %>
+  
+  
+  <h2>User management</h2>
+  	<h2><%= link_to 'Yes please!', users_path, :class => 'btn-primary btn' %></h2>
+  <% end %>
+  <% end -%>
+  </ul>
+  </div>
 </body>
 </html>

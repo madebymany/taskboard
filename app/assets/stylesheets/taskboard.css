@@ -80,11 +80,11 @@ header h1 input[type="text"], header h1 form {
 	}
 	
 		h1 span.title form input {
-			border:1px solid #CCCCCC;
+			/*border:1px solid #CCCCCC;
 			font-family:Trebuchet,Tahoma,Arial,sans-serif;
 			font-size:1em;
 			line-height: 1em;
-			padding: 0px;
+			padding: 0px;*/
 		}
 
 #actions {
@@ -142,19 +142,25 @@ header h1 input[type="text"], header h1 form {
 		#formActions fieldset#fieldsetAddColumn input[type=text] {
 			width: 340px;
 		}
+/* card title */
+span.title {
+  font-weight:bold;
+  padding-left: 5px;
+}
 
 #taskboard {
 	clear:both;
 	margin-left: 0px;
 	overflow:hidden;
+	margin-top: 40px;
 }
 
 	#taskboard .column {
 		list-style: none;
 		float: left;
-		padding: 0 7px 0 0;
+	/*	padding: 0 7px 0 0;
 		margin: 45px 0 0 7px;
-		border-right: 1px dashed #CCCCCC;
+		border-right: 1px dashed #CCCCCC;*/
 		width: 210px;
 		position: relative;
 	}
@@ -175,14 +181,17 @@ header h1 input[type="text"], header h1 form {
 			visibility:hidden;
 		}
 
+/* column title */
 		#taskboard .column h2 {
 			text-align: left;
-			margin-bottom: 5px;
+			padding-left: 10px;
+			
+		/*	margin-bottom: 5px;
 			padding-left: 5px;
 			font-size: 16px;
 			line-height: 16px;
 			font-weight: bold;
-			color: #000;
+			color: #000;*/
 		}
 
 		#taskboard .column h2:hover {
@@ -201,6 +210,7 @@ header h1 input[type="text"], header h1 form {
 		#taskboard .column ol.cards {
 			margin-left: 0px;
 			min-height:200px;
+			margin-left: 5px;
 		}
 
 			#taskboard .column ol.cards > li {
@@ -209,11 +219,10 @@ header h1 input[type="text"], header h1 form {
 				margin-bottom: 5px;
 				border: 1px solid transparent;
 				padding: 5px 20px 5px 5px;
-				background-color: #F8E065;
-				position: relative;
+				background-color: #F8E065; 
+				position: relative; 
 			/*	overflow: hidden;*/
-				font-size: 0.8em;
-				line-height: 1.4em;
+
 				-moz-border-radius: 5px;
 				-webkit-border-radius: 5px;
 			}
@@ -273,15 +282,13 @@ header h1 input[type="text"], header h1 form {
 					#taskboard .column ol.cards li ul.tags li {
 						list-style: none;
 						float:left;
-						padding: 2px 3px;
 						margin: 2px 2px 0 0;
-						/*border: 1px solid #CCCCCC;*/
+					/*	padding: 2px 3px;
+						
 						background-color: #EEEEEE;
 						font-size: 0.8em;
 						-moz-border-radius: 5px;
-						-webkit-border-radius: 5px;
-						/*-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px ;
-						-moz-box-shadow:0px 0px 3px rgba(0, 0, 0, 0.5);*/
+						-webkit-border-radius: 5px; */
 					}
 
 				
@@ -289,7 +296,7 @@ header h1 input[type="text"], header h1 form {
 				  /*position: absolute;*/
 					/*top: 5px;*/
 					/*right: 20px;*/
-						font-size: 0.8em;
+						/*font-size: 0.8em;
 						-moz-background-clip:border;
 						-moz-background-inline-policy:continuous;
 						-moz-background-origin:padding;
@@ -300,12 +307,12 @@ header h1 input[type="text"], header h1 form {
 						background:#ddd none repeat scroll 0 0;
 						color: #000;
 						margin-right: 5px;
-						padding:2px 3px;
+						padding:2px 3px;*/
 				}
 
 					#taskboard .column ol.cards li span.progress .hours {
-						font-size: 1.2em;
-						font-weight: bold;
+						/*font-size: 1.2em;
+						font-weight: bold;*/
 					
 					}
 
@@ -472,7 +479,7 @@ header h1 input[type="text"], header h1 form {
 
 .totalpoints {
 	font-size:.7em;
-	padding: 3px 5px;
+	padding: 3px 10px;
 	margin-bottom: 5px;
 	-moz-background-clip:border;
 	-moz-background-inline-policy:continuous;
@@ -532,18 +539,17 @@ header h1 input[type="text"], header h1 form {
 }
 
 .cardNum {
-	color: #000;
+	/*color: #000;
 	padding: 2px 3px;
 	font-weight: normal;
 	font-size: 0.8em;
-	/*margin-right: 5px;*/
 	-moz-border-radius-bottomleft:5px;
 	-moz-border-radius-topleft:5px;
 	-webkit-border-bottomleft:5px;
 	-webkit-border-topleft:5px;
 	background: #eee;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px ;
-	-moz-box-shadow:0px 0px 3px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0px 0px 3px rgba(0, 0, 0, 0.5);*/
 }
 
 
@@ -579,7 +585,6 @@ header h1 input[type="text"], header h1 form {
 
 #card dt {
 	float: left;
-	/*width: 200px;*/
 	clear: both;
 	font-weight: bold;
 }
@@ -595,7 +600,7 @@ dl#card dd#notes {
 }
 
 #card .hovered {
-	background-color: #d1d1d1;
+	/*background-color: #d1d1d1;*/
 }
 
 /* Big Card type style -------------------------- */
@@ -667,12 +672,12 @@ form #tagsForm {
 	margin-bottom: 0.5em;
 }
 
-#card #name h1 { font-size: 1.5em; }
+/*#card #name h1 { font-size: 1.5em; }
 #card #name h2 { font-size: 1.4em; }
 #card #name h3 { font-size: 1.2em; }
 #card #name h4 { font-size: 1.1em; }
 #card #name h5 { font-size: 1em; }
-#card #name h6 { font-size: 0.8em; }
+#card #name h6 { font-size: 0.8em; }*/
 
 #card #name p {
 	margin-bottom: 0.5em;
@@ -762,6 +767,7 @@ form #tagsForm {
 	overflow:hidden; /* for IE6 */
 	background-color: #F7F7F7;
 	padding: 2px;
+	margin:0;
 }
 
 #colorPicker .color {
@@ -785,9 +791,9 @@ form #tagsForm {
 }
 
 #filterTags {
-	overflow: hidden;
-	margin-left: 0px;
-	clear: both;
+  margin-left: 0px;
+	/*overflow: hidden;
+	clear: both;*/
 }
 
 #filterTags li {

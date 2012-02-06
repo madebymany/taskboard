@@ -23,23 +23,24 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>Taskboard: login page</title>
 		<%= stylesheet_link_tag 'bootstrap' %>
-		<%= stylesheet_link_tag 'login' %>
 	</head>
 	<body>
-		<h1>Taskboard</h1>
-		<% if flash[:notice] -%>
-		<div id="notice"><%= flash[:notice] %></div>
-		<% end -%>
-		<%= form_tag do %>
-		<fieldset>
-		<dl>
-			<dt><label for="login">User name:</label></dt>
-			<dd><%= text_field_tag :login, params[:login] %></dd>
-			<dt><label for="password">Password:</label></dt>
-			<dd><%= password_field_tag :password, params[:password] %></dd>
-		</dl>
-		<%= button_tag "Login", :class => "btn btn-primary" %>
-		</fieldset>
-		<% end %>
+	  <div class="container">
+  		<h1>Taskboard</h1>
+  		<% if flash[:notice] -%>
+  		<div id="notice"><%= flash[:notice] %></div>
+  		<% end -%>
+  		<%= form_tag do %>
+  		<fieldset>
+  		<dl>
+  			<dt><label for="login">User name:</label></dt>
+  			<dd><%= text_field_tag :login, params[:login] %></dd>
+  			<dt><label for="password">Password:</label></dt>
+  			<dd><%= password_field_tag :password, params[:password] %></dd>
+  		</dl>
+  		<%= button_tag "Login", :class => "btn btn-primary" %>
+  		</fieldset>
+  		<% end %>
+		</div>
 	</body>
 </html>
