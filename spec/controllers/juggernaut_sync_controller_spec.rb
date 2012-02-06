@@ -22,7 +22,7 @@ describe JuggernautSyncController do
   it "should synchronize changing name of the taskboard" do
     taskboard = Taskboard.new
     taskboard.id = 3
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.renameTaskboard.*/, [3])
+    Juggernaut.should_receive(:publish).with(3, /sync\.renameTaskboard.*/)
     
     controller.sync_rename_taskboard(taskboard).should include("success")
   end
@@ -34,7 +34,7 @@ describe JuggernautSyncController, "while dealing with column actions" do
   it "should synchronize adding a column" do
     column = Column.new
     column.taskboard_id = 43
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.addColumn.*/, [43])
+    Juggernaut.should_receive(:publish).with(43, /sync\.addColumn.*/)
     
     controller.sync_add_column(column).should include("success")
   end
@@ -43,7 +43,7 @@ describe JuggernautSyncController, "while dealing with column actions" do
   it "should synchronize renaming a column" do
     column = Column.new
     column.taskboard_id = 12
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.renameColumn.*/, [12])
+    Juggernaut.should_receive(:publish).with(12, /sync\.renameColumn.*/)
     
     controller.sync_rename_column(column).should include("success")
   end
@@ -52,7 +52,7 @@ describe JuggernautSyncController, "while dealing with column actions" do
   it "should synchronize moving a column" do
     column = Column.new
     column.taskboard_id = 23
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.moveColumn.*/, [23])
+    Juggernaut.should_receive(:publish).with(23, /sync\.moveColumn.*/)
     
     controller.sync_move_column(column).should include("success")
   end
@@ -61,7 +61,7 @@ describe JuggernautSyncController, "while dealing with column actions" do
   it "should synchronize deleting a column" do
     column = Column.new
     column.taskboard_id = 83
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.deleteColumn.*/, [83])
+    Juggernaut.should_receive(:publish).with(83, /sync\.deleteColumn.*/)
     
     controller.sync_delete_column(column).should include("success")
   end
@@ -73,7 +73,7 @@ describe JuggernautSyncController, "while dealing with cards actions" do
   it "should synchronize adding cards" do
     card = Card.new
     card.taskboard_id = 42
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.addCards.*/, [42])
+    Juggernaut.should_receive(:publish).with(42, /sync\.addCards.*/)
     
     controller.sync_add_cards([card]).should include("success")
   end
@@ -82,7 +82,7 @@ describe JuggernautSyncController, "while dealing with cards actions" do
     card = Card.new
     card.taskboard_id = 98
     card.column = Column.new
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.moveCard.*/, [98])
+    Juggernaut.should_receive(:publish).with(98, /sync\.moveCard.*/)
     
     controller.sync_move_card(card).should include("success")
   end
@@ -90,7 +90,7 @@ describe JuggernautSyncController, "while dealing with cards actions" do
   it "should synchronize updating ideal hours on a card" do
     card = Card.new
     card.taskboard_id = 98
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.updateCardHours.*/, [98])
+    Juggernaut.should_receive(:publish).with(98, /sync\.updateCardHours.*/)
     
     controller.sync_update_card_hours(card).should include("success")
   end
@@ -98,7 +98,7 @@ describe JuggernautSyncController, "while dealing with cards actions" do
   it "should synchronize changing card color" do
     card = Card.new
     card.taskboard_id = 74
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.changeCardColor.*/, [74])
+    Juggernaut.should_receive(:publish).with(74, /sync\.changeCardColor.*/)
     
     controller.sync_change_card_color(card).should include("success")
   end
@@ -106,7 +106,7 @@ describe JuggernautSyncController, "while dealing with cards actions" do
   it "should synchronize deleting a card" do
     card = Card.new
     card.taskboard_id = 83
-    Juggernaut.should_receive(:send_to_channels).with(/sync\.deleteCard.*/, [83])
+    Juggernaut.should_receive(:publish).with(83, /sync\.deleteCard.*/)
     
     controller.sync_delete_card(card).should include("success")
   end
@@ -134,7 +134,7 @@ describe JuggernautSyncController, "while saving report" do
     @card.column = @column
     @card.position = 1
     
-    Juggernaut.should_receive(:send_to_channels)
+    Juggernaut.should_receive(:publish)
   end
     
   context "of taskboard actions" do

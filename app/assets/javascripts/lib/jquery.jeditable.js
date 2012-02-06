@@ -424,7 +424,7 @@
                             });
                         /* otherwise use button with given string as text */
                         } else {
-                            var submit = $('<button type="submit" class="btn btn-small" />');
+                            var submit = $('<button type="submit" class="btn btn-small btn-primary" />');
                             submit.html(settings.submit);                            
                         }
                         $(this).append(submit);
@@ -435,7 +435,7 @@
                             var cancel = $(settings.cancel);
                         /* otherwise use button with given string as text */
                         } else {
-                            var cancel = $('<button type="cancel" class="btn btn-small btn-primary" />');
+                            var cancel = $('<button type="cancel" class="btn btn-small" />');
                             cancel.html(settings.cancel);
                         }
                         $(this).append(cancel);

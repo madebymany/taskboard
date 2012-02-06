@@ -23,6 +23,7 @@ describe TaskboardController, "while showing taskboards list page" do
   fixtures :taskboards, :columns, :cards
   
   it "should show list of taskboards" do
+    current_user = User.first
     taskboards = [Taskboard.new, Taskboard.new]
     Taskboard.should_receive(:find).with(:all, {:order => "name"}).and_return(taskboards)
     get 'index', {}, {:user_id => 1, :editor => true}

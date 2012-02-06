@@ -254,7 +254,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 		cardLi += $.tag('span', $.tag('a', card.issue_no, { href : card.url, rel : 'external'}) + ": ",	{ className : 'alias' });
 	}
 	cardLi += $.tag("span", '#' + card.id, { className : 'label' } );
-	cardLi += $.tag("span", $.tag("span", card.points, { className : 'label label-important' }), { className : '' });
+	cardLi += $.tag("span", $.tag("span", card.points, { className : 'label label-important points' }), { className : '' });
 	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
 
 /* hacked in the card notes. */

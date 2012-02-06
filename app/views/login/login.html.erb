@@ -26,19 +26,38 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	</head>
 	<body>
 	  <div class="container">
-  		<h1>Taskboard</h1>
+  		
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <%= link_to "Taskboard", { :controller => "taskboard", :action => "index" }, :title => "Back to taskboard list", :rel => 'home', :class => "brand" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-header">
+        <h1>Login</h1>
+      </div>
+
+
   		<% if flash[:notice] -%>
-  		<div id="notice"><%= flash[:notice] %></div>
+  		<div class="alert alert-error"><%= flash[:notice] %></div>
   		<% end -%>
   		<%= form_tag do %>
   		<fieldset>
-  		<dl>
-  			<dt><label for="login">User name:</label></dt>
-  			<dd><%= text_field_tag :login, params[:login] %></dd>
-  			<dt><label for="password">Password:</label></dt>
-  			<dd><%= password_field_tag :password, params[:password] %></dd>
-  		</dl>
-  		<%= button_tag "Login", :class => "btn btn-primary" %>
+        <div class="control-group">
+          <label for="login" class="control-label">User name:</label>
+          <div class="controls">
+            <%= text_field_tag :login, params[:login] %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="password" class="control-label">Password:</label>
+          <div class="controls">
+            <%= password_field_tag :password, params[:password] %>
+          </div>
+        </div>
+  		  <%= button_tag "Login", :class => "btn btn-primary" %>
   		</fieldset>
   		<% end %>
 		</div>
