@@ -215,9 +215,9 @@ span.title {
 				list-style: none;
 				min-height: 25px;
 				margin-bottom: 5px;
-				border: 1px solid transparent;
-				padding: 5px 20px 5px 5px;
-				background-color: #F8E065; 
+				/*border: 1px solid transparent;*/
+				padding: 5px 5px 5px 5px;
+				background-color: #fff; 
 				position: relative; 
 			/*	overflow: hidden;*/
 
@@ -466,6 +466,7 @@ span.title {
 		font-weight: normal;
 	}
 	#taskboard .column ol.cards > li li {
+	  margin: 0;
 	}
 
 
@@ -596,6 +597,15 @@ span.title {
 dl#card dd#notes {
 		overflow: auto; 
 }
+
+dd#notes.notes ul {
+  margin-left:5px;
+}
+
+#card #notes h1 {
+  width: 100%;
+}
+
 
 #card .hovered {
 	/*background-color: #d1d1d1;*/

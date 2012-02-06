@@ -22,7 +22,7 @@ class Card < ActiveRecord::Base
   belongs_to :taskboard
   belongs_to :column
   
-  DEFAULT_COLOR = '#F8E065'.freeze
+  DEFAULT_COLOR = '#ffffff'.freeze
   
   acts_as_list :scope => :column
   acts_as_taggable

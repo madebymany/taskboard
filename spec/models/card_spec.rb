@@ -100,7 +100,7 @@ describe Card, "while serializing to json" do
   
   it "should have default color" do
     card = Card.create!(@valid_attributes.except(:color))
-    card.to_json.should include('#F8E065')
+    card.to_json.should include('#FFFFFF')
   end
 
   it "should not include any dates and unneeded foreigh keys" do

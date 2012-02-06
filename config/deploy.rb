@@ -48,4 +48,11 @@ unless Conan::VERSION == "0.3.2"
   $stderr.puts "Warning: Conan version mismatch."
 end
 
+
 require "conan/capistrano"
+
+namespace :deploy do
+  namespace :assets do
+    task :precompile do; end
+  end
+end

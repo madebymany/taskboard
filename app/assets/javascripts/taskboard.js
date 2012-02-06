@@ -360,7 +360,7 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 							$(card).data('data').color = color;
 							TASKBOARD.remote.api.changeCardColor($(card).data('data').id, color);
 						 },
-						colors : ['#E0B4A4', '#93CFC5', '#F2F1A0', '#B5ACC2', '#A3C4BD', '#aaa','#ffff00','#666'],
+						colors : ['#F8E9B8', '#8FBDC9', '#BEE075', '#F88FAD', '#B5FA98', '#F8995A','#ffff00','#ffffff'],
 						columns: 5,
 						top : $(this).offset().top - 8,
 						left : $(this).offset().left + 12,
