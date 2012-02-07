@@ -306,9 +306,10 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 			TASKBOARD.openCard($(this).data('data'));
 		});
 	if(card.tag_list && card.tag_list.length){
-	$.each(card.tag_list, function(i, tag){
-		cardLi.addClass('tagged_as_' + tag.toClassName());
-	});
+
+		$.each(card.tag_list, function(i, tag){
+			cardLi.addClass('tagged_as_' + tag.toClassName());
+		});
 	}
 
 	// edit-mode-only
@@ -1007,8 +1008,9 @@ TASKBOARD.tags = {
 			cardSelectors.push(cardSelector);
 		});
 		
-		var filtered = $("#taskboard .cards > li").css("opacity", null);
+		var filtered = $("#taskboard .cards > li").css("opacity", 1);
 		$.each(cardSelectors, function(){
+			
 			filtered = filtered.not("#taskboard .cards > li" + this);
 		});
 		if($("#filterTags .current a").length){
