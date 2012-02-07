@@ -101,6 +101,7 @@ header h1 input[type="text"], header h1 form {
 	margin-top: 40px;
 	margin-right: 20px;
 	right: 0;
+	z-index: 99999;
 }
 
 	#formActions fieldset {
@@ -521,6 +522,7 @@ span.title {
 	position : fixed;
 	bottom : 0;
 	right : 0;
+	z-index: 99999;
 }
 
 #notifications li {
