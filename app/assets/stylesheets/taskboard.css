@@ -279,17 +279,13 @@ span.title {
 				}
 
 					#taskboard .column ol.cards li ul.tags li {
-						list-style: none;
-						float:left;
-						margin: 2px 2px 0 0;
-					/*	padding: 2px 3px;
-						
-						background-color: #EEEEEE;
-						font-size: 0.8em;
-						-moz-border-radius: 5px;
-						-webkit-border-radius: 5px; */
+						float: left;
+					    line-height: 16px;
+					    list-style: none outside none;
+					    margin: 2px 2px 0 0;
+					    margin-right: 2px;
+					    padding: 0 5px;
 					}
-
 				
 				#taskboard .column ol.cards li span.progress {
 				  /*position: absolute;*/
