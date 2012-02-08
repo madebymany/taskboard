@@ -148,8 +148,9 @@ header h1 input[type="text"], header h1 form {
 		}
 /* card title */
 span.title {
-  font-weight:bold;
+  font-weight:normal;
   padding-left: 5px;
+  text-transform: uppercase; 
 }
 
 #taskboard {
@@ -251,8 +252,7 @@ span.title {
 				#taskboard .column ol.cards li:hover ul.actions {
 					display: block;
 				}
-
-
+				
 					#taskboard .column ol.cards li ul.actions li {
 						list-style: none;
 						min-height: auto;
@@ -451,10 +451,11 @@ span.title {
 	}
 	
 	#taskboard .column ol.cards > li h1{
-		font-size: 16px;
-    	font-weight: bold;
-    	line-height: 16px;
-		text-decoration: underline;
+		font-size: 14px;
+		text-transform: uppercase;
+		font-weight: bold;
+		line-height: 24px;
+		color: #666;
 	}
 	#taskboard .column ol.cards > li h2 {
 		font-weight: normal;
