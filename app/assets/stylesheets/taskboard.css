@@ -150,7 +150,6 @@ header h1 input[type="text"], header h1 form {
 span.title {
   font-weight:normal;
   padding-left: 5px;
-  text-transform: uppercase; 
 }
 
 #taskboard {
