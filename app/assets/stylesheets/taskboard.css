@@ -219,7 +219,7 @@ span.title {
 
 			#taskboard .column ol.cards > li {
 				list-style: none;
-				min-height: 42px;
+				/*min-height: 42px;*/
 				margin-bottom: 5px;
 				/*border: 1px solid transparent;*/
 				padding: 5px 12px 5px 5px;
@@ -231,7 +231,7 @@ span.title {
 				-webkit-border-radius: 5px;
 			}
 			#taskboard .column ol.cards > li:hover {
-				min-height: 40px;
+				/*min-height: 40px;*/
 			}
 			.iphone #taskboard .column ol.cards > li:hover {
 				min-height: 65px;
