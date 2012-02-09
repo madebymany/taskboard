@@ -149,7 +149,7 @@ header h1 input[type="text"], header h1 form {
 /* card title */
 span.title {
   font-weight:bold;
-  padding-left: 5px;
+  padding-left: 0px;
 }
 
 #taskboard {
@@ -280,17 +280,23 @@ span.title {
 				}
 
 				#taskboard .column ol.cards li ul.tags {
-					clear: both;
-					overflow: hidden;
+					display: inline;
+					/*clear: both;
+					overflow: hidden;*/
 				}
 
 					#taskboard .column ol.cards li ul.tags li {
+						display: inline;
+						float: none;
+						margin: 2px 0 0 2px;
+						/*
 						float: left;
 					    line-height: 16px;
 					    list-style: none outside none;
 					    margin: 2px 2px 0 0;
 					    margin-right: 2px;
 					    padding: 0 5px;
+					    */
 					}
 				
 				#taskboard .column ol.cards li span.progress {

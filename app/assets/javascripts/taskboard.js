@@ -260,7 +260,15 @@ TASKBOARD.builder.buildColumnFromJSON = function(column){
  */
 TASKBOARD.builder.buildCardFromJSON = function(card){
 	var cardLi = "";
-	if(card.issue_no){
+	
+	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
+
+/* hacked in the card notes. */
+	var notes = card.notes ? (new Showdown.converter()).makeHtml(card.notes.escapeHTML()) : "";
+/*	cardLi += $.tag("dt", "Story", { id : "notes", classname : "notes" }); */
+	cardLi += $.tag("dd", notes, { id : "notes", className : "notes" });
+  
+  	if(card.issue_no){
 		cardLi += $.tag('span', $.tag('a', card.issue_no, { href : card.url, rel : 'external'}) + ": ",	{ className : 'alias' });
 	}
 	cardLi += $.tag("span", '#' + card.id, { className : 'label' } );
@@ -274,14 +282,6 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	} else {
 		cardLi += $.tag("span", '', { className : 'users'});
 	}
-
-	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
-
-/* hacked in the card notes. */
-	var notes = card.notes ? (new Showdown.converter()).makeHtml(card.notes.escapeHTML()) : "";
-/*	cardLi += $.tag("dt", "Story", { id : "notes", classname : "notes" }); */
-	cardLi += $.tag("dd", notes, { id : "notes", className : "notes" });
-  
 
 	if(card.tag_list && card.tag_list.length){
 		var tagsUl = "";
@@ -494,7 +494,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 							$.tag("a", "X", { className : "deleteTag", href : "#" });
 				$("#tags ul").append($.tag("li", tagLi));
 				$("#tags .deleteTag").bind('click',function(){
-					var tag = $(this).parent().find(".tag").text();
+					var tag = $(this).parent().find(".label").text();
 					TASKBOARD.remote.api.removeTag(card.id, tag);
 					var index = card.tag_list.indexOf(tag);
 					card.tag_list.splice(index, index);
@@ -549,7 +549,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 			.bind("mouseleave.editable", function(){ $(this).removeClass("hovered"); });
   			
 		bigCard.find('#tags .deleteTag').bind('click',function(){
-			var tag = $(this).parent().find(".tag").text();
+			var tag = $(this).parent().find(".label").text();
 			var index = card.tag_list.indexOf(tag);
 			card.tag_list.splice(index, index);
 			TASKBOARD.api.updateCard({ card: card });
