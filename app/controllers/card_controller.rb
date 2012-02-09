@@ -78,7 +78,7 @@ class CardController < JuggernautSyncController
     before = @card.users
     @card.user_ids = params[:users].split(',')
     @card.save
-    render :json => sunc_update_card_users(@card, { :before => before, :after => @card.users, :message => "Updated assignees for '#{@card.name}'"})
+    render :json => sync_update_card(@card, { :before => before, :after => @card.users, :message => "Updated assignees for '#{@card.name}'"})
   end
 
   def add_tag

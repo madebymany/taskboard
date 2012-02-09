@@ -1098,7 +1098,7 @@ TASKBOARD.tags = {
 	},
 	
 	updateCardSelection : function(){
-		var filtered = $("#taskboard .cards > li").css("opacity", 1);
+		var filtered = $("#taskboard .cards > li").css("opacity", 0.2);
 
 		if ($("#filterTags .current a").length == 0 && $("#filterUsers .current a").length == 0) {
 			$("#taskboard .cards > li").css("opacity", 1);
@@ -1116,7 +1116,7 @@ TASKBOARD.tags = {
 		});
 		
 		$.each(cardSelectors, function(){
-			filtered = filtered.not("#taskboard .cards > li" + this);
+			filtered = filtered.filter("#taskboard .cards > li" + this);
 		});
 
 		cardSelectors = [];
@@ -1130,13 +1130,12 @@ TASKBOARD.tags = {
 		});
 		
 		$.each(cardSelectors, function(){
-			filtered = filtered.not("#taskboard .cards > li" + this);
+			filtered = filtered.filter("#taskboard .cards > li" + this);
 		});
 		
 		if($("#filterTags .current a").length || $("#filterUsers .current a").length){
-			filtered.css("opacity", 0.2);
+			filtered.css("opacity", 1);
 		}
-		
 	}
 };
 
