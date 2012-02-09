@@ -799,18 +799,18 @@ form #tagsForm {
 	background-position:-32px 0;
 }
 
-#filterTags {
+#filterTags, #filterUsers {
   margin-left: 0px;
 	/*overflow: hidden;
 	clear: both;*/
 }
 
-#filterTags li {
+#filterTags li, #filterUsers li{
 	float:left;
 	list-style: none;
 }
 
-#filterTags li a {
+#filterTags li a, #filterUsers li a {
 	list-style: none;
 	display: block;
 	padding: 3px;
@@ -823,7 +823,7 @@ form #tagsForm {
 	color: #fff;
 }
 
-#filterTags li.current a {
+#filterTags li.current a, #filterUsers li.current a {
 		list-style: none;
 	background-color: #fff;
 	border: 1px solid #CCC;

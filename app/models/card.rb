@@ -21,6 +21,9 @@ class Card < ActiveRecord::Base
   has_many :hours, :order => "date asc"
   belongs_to :taskboard
   belongs_to :column
+
+  has_many :assignees, :dependent => :destroy
+  has_many :users, :through => :assignees
   
   DEFAULT_COLOR = '#ffffff'.freeze
   
@@ -111,6 +114,7 @@ class Card < ActiveRecord::Base
     options[:methods] << :tag_list
     options[:methods] << :hours_left
     options[:methods] << :hours_left_updated
+    options[:methods] << :users
     super(options)
   end
 

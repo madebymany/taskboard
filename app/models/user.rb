@@ -55,6 +55,11 @@ class User < ActiveRecord::Base
   def has_permission?(taskboard)
       self.taskboards.include?(taskboard)
   end
+
+  def to_json options = {}
+    options[:except] = [:created_at, :updated_at, :editor, :hashed_password, :is_admin, :salt]
+    super(options)
+  end
   
   private
 

@@ -10,6 +10,7 @@ db/development_structure.sql
 assets_lock
 db/*.sqlite3-journal
 db/sphinx
+db/schema.rb
 coverage
 
 /deploy/chef/dna/generated.json

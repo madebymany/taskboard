@@ -66,6 +66,10 @@ class UsersController < ApplicationController
     params[:user][:taskboard_ids] ||= []
 
     respond_to do |format|
+      if params[:user][:password].empty? || params[:user][:password_confirmation].empty?
+        params[:user].delete(:password)
+        params[:user].delete(:password_confirmation)
+      end
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to(@user) }

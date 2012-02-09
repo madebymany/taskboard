@@ -395,13 +395,13 @@ TASKBOARD.builder.buildBigCard = function(card){
 
 	var tagsUl = "";
 	if(card.tag_list && card.tag_list.length){
-	$.each(card.tag_list, function(){
-		var tagLi = $.tag("span", this.escapeHTML(), { className : "label" });
-		if(TASKBOARD.editor){
-			tagLi += $.tag("a", "X", { className : "deleteTag", href : "#" });
-		}
-		tagsUl += $.tag("li", tagLi);
-	});
+		$.each(card.tag_list, function(){
+			var tagLi = $.tag("span", this.escapeHTML(), { className : "label" });
+			if(TASKBOARD.editor){
+				tagLi += $.tag("a", "X", { className : "deleteTag", href : "#" });
+			}
+			tagsUl += $.tag("li", tagLi);
+		});
 	}
 	tagsUl = $.tag("ul", tagsUl, { className : 'tags' });
 
@@ -419,6 +419,26 @@ TASKBOARD.builder.buildBigCard = function(card){
 		
 	cardDl += $.tag("dt", "Points");
 	cardDl += $.tag("dd", card.points, { id : "points", className : "editable" });
+
+	var usersUl = "";
+	$.each(TASKBOARD.users.getUsersList(), function(){
+		var id = this.id;
+		var classes = "label";
+		if(card.users && card.users.length){
+			$.each(card.users, function(){
+				if (this.id == id) {
+					classes += " label-success";
+				}
+			});
+		}
+		var userLi = $.tag("span", this.username.escapeHTML(), { className : classes, "data-id" : id });
+		usersUl += $.tag("li", userLi);
+	});
+
+	usersUl = $.tag("ul", usersUl, { className : 'tags' });
+
+	cardDl += $.tag("dt", "Assignees");
+	cardDl += $.tag("dd", usersUl, { id : "assignees", className : "editable" });
 
 	cardDl = $.tag("dl", cardDl, { id : 'card' });
 
@@ -488,10 +508,7 @@ TASKBOARD.builder.buildBigCard = function(card){
 
 	    var pointsData = function(){
 	      var current = $(this).closest('dl').data('data').points;
-	      var res = {}
-	      for (var i=0; i < 15; i++) {
-	        res[i] = i;
-	      };
+	      var res = {0:0,1:1,2:2,3:3,5:5,8:8,13:13};
 	      res['selected'] = current;
 	      return(res);
 	    }
@@ -777,6 +794,13 @@ TASKBOARD.api = {
       columnPoints -= points;
       columnPoints -= points;
       $('#column_' + column_id + '_totalpoints').text("Total Points: " + columnPoints);
+    },
+
+    updateCardUsers : function(card){
+    	if (card.card) {
+			card = card.card;
+		}
+		$('#card_' + card.id).data('data').users = card.users;
     }
 };
 
@@ -853,6 +877,11 @@ TASKBOARD.init = function(){
 		TASKBOARD.form.toggle('#fieldsetTags');
 		ev.preventDefault();
 	});
+	$(".actionShowUserSearch").bind("click", function(ev){
+		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
+		TASKBOARD.form.toggle('#fieldsetUsers');
+		ev.preventDefault();
+	});
 	
 	$("#filterTags a").live("click", function(){
 		$(this).parent().toggleClass("current");
@@ -890,7 +919,9 @@ TASKBOARD.loadFromJSON = function(taskboard){
 						.attr("title", TASKBOARD.builder.strings.columnHeaderTitle);
 	}
 	$("header h1").append(" ").append(title);
-
+	
+	TASKBOARD.users.updateUsersList();
+	
 	$("#taskboard").html("");
 	$.each(taskboard.columns.sortByPosition(), function(i, column){
 		$("#taskboard").append(TASKBOARD.builder.buildColumnFromJSON(column));
@@ -938,6 +969,9 @@ TASKBOARD.openCard = function(card){
 	var bigCard = TASKBOARD.builder.buildBigCard(card);
 
 	bigCard.appendTo($('.modal-body'));
+
+	TASKBOARD.users.addBigCardLinks();
+
 	$('.modal').modal('show');
 };
   
@@ -952,6 +986,35 @@ $(document).ready(function() {
 		ev.preventDefault();
 	});
 });
+
+TASKBOARD.users = {
+	usersList : {},
+
+	updateUsersList : function(){
+		usersList = {};
+		var usersLinks = "";
+		$.each(TASKBOARD.data.users, function(i, user){
+			usersList[user.id] = user;
+			usersLinks += $.tag("li", $.tag("a", user.username, { href : "#user"}));
+		});
+		$("#filterUsers").html(usersLinks);
+	},
+
+	getUsersList : function(){
+		return usersList;
+	},
+
+	addBigCardLinks : function(){
+		$("#assignees span").bind('click', function(){
+			$(this).toggleClass('label-success');
+			var ids = [];
+			$('.label-success', $(this).parent().parent()).each( function() {
+				ids.push($(this).data('id'));
+			});
+			TASKBOARD.remote.api.updateCardUsers($('#card').data('data').id, ids.join(",")); // redraw small card
+		});
+	}
+}
 
 TASKBOARD.tags = {
 	tagList : {},
@@ -1150,6 +1213,9 @@ TASKBOARD.remote = {
 		},
 		changeCardColor : function(cardId, color){
 			TASKBOARD.remote.callback('/card/change_color/', { id: cardId, color : color });
+		},
+		updateCardUsers : function(cardId, users){
+			TASKBOARD.remote.callback('/card/update_users/', { id: cardId, users : users });
 		}
 	}
 };
@@ -1172,7 +1238,7 @@ window.sync = {
 
 $.each(['renameTaskboard',
 		'addColumn', 'renameColumn', 'moveColumn', 'deleteColumn',
-		'addCards','moveCard','updateCardHours','changeCardColor','deleteCard', 'renameCard', 'updateCard'],
+		'addCards','moveCard','updateCardHours','changeCardColor','deleteCard', 'renameCard', 'updateCard', 'updateCardUsers'],
 		function(){
 			var action = this;
 			sync[action] = function(data, self){

@@ -141,6 +141,14 @@ class JuggernautSyncController < ApplicationController
     
     sync_card_action card, 'updateCard', options    
   end
+
+  def sunc_update_card_users card, params = {}
+    options = { :message => "Changed users of a '#{card.name}' card",
+                :before => "",
+                :after => card.users }.update params
+    
+    sync_card_action card, 'updateCardUsers', options   
+  end
   
   private
 
