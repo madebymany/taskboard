@@ -271,6 +271,8 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 			usersUl += $.tag("span", $.tag("span", user.username, { className : 'label label-success user' }), { className : '' });
 		});
 		cardLi += $.tag("span", usersUl, { className : 'users'});
+	} else {
+		cardLi += $.tag("span", '', { className : 'users'});
 	}
 
 	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
@@ -823,7 +825,6 @@ TASKBOARD.api = {
 			card = card.card;
 		}
 		$('#card_' + card.id).data('data').users = card.users;
-		console.log(card.users);
 		var usersUl = "";
 		if(card.users && card.users.length){
 			$.each(card.users, function(i, user){
