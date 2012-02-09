@@ -609,6 +609,10 @@ dl#card dd#notes {
 		overflow: auto; 
 }
 
+dd#notes.notes p {
+	margin-bottom: 1px;
+}
+
 dd#notes.notes ul {
   margin-left:5px;
 }
