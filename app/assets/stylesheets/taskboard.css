@@ -148,7 +148,7 @@ header h1 input[type="text"], header h1 form {
 		}
 /* card title */
 span.title {
-  font-weight:normal;
+  font-weight:bold;
   padding-left: 5px;
 }
 
@@ -214,10 +214,10 @@ span.title {
 
 			#taskboard .column ol.cards > li {
 				list-style: none;
-				min-height: 25px;
+				min-height: 42px;
 				margin-bottom: 5px;
 				/*border: 1px solid transparent;*/
-				padding: 5px 5px 5px 5px;
+				padding: 5px 12px 5px 5px;
 				background-color: #fff; 
 				position: relative; 
 			/*	overflow: hidden;*/
@@ -244,15 +244,15 @@ span.title {
 				#taskboard .column ol.cards li ul.actions {
 					display: none;
 					position: absolute;
-					top: 5px;
-					right: 5px;
-					background-color: #f8f8f8;
+					top: 2px;
+					right: 2px;
+					background-color: #ddd;
 					padding: 2px;
-					border-radius: 5px 5px 5px 5px;
-      		-webkit-border-top-left-radius: 5px 5px;
-      		-webkit-border-top-right-radius: 5px 5px;
-      		-webkit-border-bottom-left-radius: 5px 5px;
-      		-webkit-border-bottom-right-radius: 5px 5px;
+					border-radius: 2px 2px 2px 2px;
+      		-webkit-border-top-left-radius: 2px 2px;
+      		-webkit-border-top-right-radius: 2px 2px;
+      		-webkit-border-bottom-left-radius: 2px 2px;
+      		-webkit-border-bottom-right-radius: 2px 2px;
 				}
 
 				#taskboard .column ol.cards li:hover ul.actions {
