@@ -450,9 +450,9 @@ span.title {
 	}
 	
 	#taskboard .column ol.cards > li h1{
-		font-size: 14px;
+		font-size: 12px;
 		text-transform: uppercase;
-		font-weight: bold;
+		font-weight: normal;
 		line-height: 24px;
 		color: #666;
 	}
