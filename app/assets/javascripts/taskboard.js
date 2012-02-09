@@ -60,6 +60,16 @@ TASKBOARD.utils = {
 	expandTaskboard : function(){
 		this.expandColumnsHeight();
 		this.expandTaskboardWidth();
+	},
+
+	hasClasses : function(classes){
+		var result = true;
+
+		for( i = classes.length - 1 ; i >= 0 && result ; i-- ){
+			result = $(this).hasClass( classes[i] );
+		}
+
+		return result;
 	}
 };
 
@@ -255,6 +265,14 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	}
 	cardLi += $.tag("span", '#' + card.id, { className : 'label' } );
 	cardLi += $.tag("span", $.tag("span", card.points, { className : 'label label-important points' }), { className : '' });
+	if(card.users && card.users.length){
+		var usersUl = "";
+		$.each(card.users, function(i, user){
+			usersUl += $.tag("span", $.tag("span", user.username, { className : 'label label-success user' }), { className : '' });
+		});
+		cardLi += $.tag("span", usersUl, { className : 'users'});
+	}
+
 	cardLi += $.tag("span",  card.name.escapeHTML(), { className : 'title' });
 
 /* hacked in the card notes. */
@@ -306,9 +324,13 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 			TASKBOARD.openCard($(this).data('data'));
 		});
 	if(card.tag_list && card.tag_list.length){
-
 		$.each(card.tag_list, function(i, tag){
 			cardLi.addClass('tagged_as_' + tag.toClassName());
+		});
+	}
+	if(card.users && card.users.length){
+		$.each(card.users, function(i, user){
+			cardLi.addClass('assigned_to_' + user.id);
 		});
 	}
 
@@ -801,6 +823,14 @@ TASKBOARD.api = {
 			card = card.card;
 		}
 		$('#card_' + card.id).data('data').users = card.users;
+		console.log(card.users);
+		var usersUl = "";
+		if(card.users && card.users.length){
+			$.each(card.users, function(i, user){
+				usersUl += $.tag("span", $.tag("span", user.username, { className : 'label label-success user' }), { className : '' });
+			});
+		}
+		$('#card_' + card.id+' .users').html($(usersUl));
     }
 };
 
@@ -872,18 +902,25 @@ TASKBOARD.init = function(){
 		ev.preventDefault();
 	});
 
-	$(".actionShowTagSearch").bind("click", function(ev){
+	$(".actionShowFilterSearch").bind("click", function(ev){
 		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
 		TASKBOARD.form.toggle('#fieldsetTags');
 		ev.preventDefault();
 	});
+	/*
 	$(".actionShowUserSearch").bind("click", function(ev){
 		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
 		TASKBOARD.form.toggle('#fieldsetUsers');
 		ev.preventDefault();
 	});
-	
+	*/
 	$("#filterTags a").live("click", function(){
+		$(this).parent().toggleClass("current");
+		TASKBOARD.tags.updateCardSelection();
+		return false;
+	});
+
+	$("#filterUsers a").live("click", function(){
 		$(this).parent().toggleClass("current");
 		TASKBOARD.tags.updateCardSelection();
 		return false;
@@ -993,9 +1030,12 @@ TASKBOARD.users = {
 	updateUsersList : function(){
 		usersList = {};
 		var usersLinks = "";
+		var className = $("#filterUsers a[href='#nousers']").parent().hasClass("current") ? "current" : "";
+		usersLinks += $.tag("li", $.tag("a", "No users", { href : "#nousers", title : "Highlight cards with no users" }),
+							 { className : className } );
 		$.each(TASKBOARD.data.users, function(i, user){
 			usersList[user.id] = user;
-			usersLinks += $.tag("li", $.tag("a", user.username, { href : "#user"}));
+			usersLinks += $.tag("li", $.tag("a", user.username, { href : "#assigned_to_"+user.id, title: "Highlight cards assigned to '" + user.id + "'" }));
 		});
 		$("#filterUsers").html(usersLinks);
 	},
@@ -1057,28 +1097,45 @@ TASKBOARD.tags = {
 	},
 	
 	updateCardSelection : function(){
+		var filtered = $("#taskboard .cards > li").css("opacity", 1);
+
+		if ($("#filterTags .current a").length == 0 && $("#filterUsers .current a").length == 0) {
+			$("#taskboard .cards > li").css("opacity", 1);
+		}
+
 		var cardSelectors = [];
-		
 		$("#filterTags .current a").each(function(){
-		
 			var cardSelector = "";
 			if($(this).attr('href') === '#notags'){
 				cardSelector = ":not([class*='tagged_as_'])";
 			} else {
 				cardSelector = $(this).attr('href').replace("#", ".");
 			}
-			
 			cardSelectors.push(cardSelector);
 		});
 		
-		var filtered = $("#taskboard .cards > li").css("opacity", 1);
 		$.each(cardSelectors, function(){
-			
 			filtered = filtered.not("#taskboard .cards > li" + this);
 		});
-		if($("#filterTags .current a").length){
+
+		cardSelectors = [];
+		$("#filterUsers .current a").each(function(){
+			if($(this).attr('href') === '#nousers'){
+				cardSelector = ":not([class*='assigned_to_'])";
+			} else {
+				cardSelector = $(this).attr('href').replace("#", ".");
+			}
+			cardSelectors.push(cardSelector);
+		});
+		
+		$.each(cardSelectors, function(){
+			filtered = filtered.not("#taskboard .cards > li" + this);
+		});
+		
+		if($("#filterTags .current a").length || $("#filterUsers .current a").length){
 			filtered.css("opacity", 0.2);
 		}
+		
 	}
 };
 
