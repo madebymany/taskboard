@@ -114,17 +114,25 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</fieldset>
 			<fieldset id="fieldsetAddCards">
+				<div id="fieldsetAddCards">
+				<% if false %>
 				<a class='actionHideForm' href='#' title='Hide'><img src='/assets/hide_off.png' alt='Hide'/></a>
+				<% end %>
 				<label for="inputAddCards">Type a card title, JIRA issue or paste a filter URL:</label>
 				<input id="inputAddCards" type="text" />
 				<input type="submit" value="Add" />
 				<span>to</span> <select id="selectColumn"><option>Test</option></select>
+				</div>
 			</fieldset>
 			<fieldset id="fieldsetAddColumn">
+				<div id="fieldsetAddColumn">
+				<% if false %>
 				<a class='actionHideForm' href='#' title='Hide'><img src='/assets/hide_off.png' alt='Hide'/></a>
+				<% end %>
 				<label for="inputAddColumn">Type a column name:</label>
 				<input id="inputAddColumn" type="text" />
 				<input type="submit" value="Add" />
+				</div>
 			</fieldset>
 			<fieldset id="fieldsetTags">
 				<% if false %>

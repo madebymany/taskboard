@@ -894,9 +894,21 @@ TASKBOARD.init = function(){
 		ev.preventDefault();
 	});
 	
+	/*
+	$('.actionAddCards').popover({
+	        html: true,
+	        trigger: 'manual',
+	        placement: 'bottom',
+	        content: function() {
+	        	return $('fieldset#fieldsetAddCards').html();
+	        }
+	});
+	*/
+
 	$(".actionAddCards").bind("click", function(ev){
 		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
 		TASKBOARD.form.toggle('#fieldsetAddCards');
+		//$('.actionAddCards').popover('toggle');
 		ev.preventDefault();
 	});
 
@@ -906,7 +918,7 @@ TASKBOARD.init = function(){
 		ev.preventDefault();
 	});
 
-	/*
+	var popoverShowing = false;
 	$('.actionShowFilterSearch').popover({
 	        html: true,
 	        trigger: 'manual',
@@ -915,12 +927,16 @@ TASKBOARD.init = function(){
 	        	return $('#fieldsetTags').html();
 	        }
 	});
-	*/
+	
 	$(".actionShowFilterSearch").bind("click", function(ev){
-		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
-		TASKBOARD.form.toggle('#fieldsetTags');
+		//$(this).parent().siblings().removeClass("current").end().toggleClass("current");
+		//TASKBOARD.form.toggle('#fieldsetTags');
 		
-		//$(this).popover('toggle');
+		if (popoverShowing) {
+			$('#fieldsetTags').html($('.popover-content').html());
+		}
+		$(this).popover('toggle');
+		popoverShowing = !popoverShowing;
 		
 		ev.preventDefault();
 	});

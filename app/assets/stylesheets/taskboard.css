@@ -23,6 +23,10 @@ body {
     padding-bottom: 40px;
 }
 
+.popover-inner {
+	width: auto !important;
+}
+
 .container {
 	height:100%;
 	padding-left: 10px;
@@ -96,6 +100,7 @@ header h1 input[type="text"], header h1 form {
 }
 
  /* the drop down menus --------------------------*/
+
 #formActions {
 	position: absolute;
 	margin-top: 40px;
@@ -120,7 +125,7 @@ header h1 input[type="text"], header h1 form {
 		color: #FFFFFF;
 	}
 
-	#formActions fieldset#fieldsetAddColumn {
+	#formActions div#fieldsetAddColumn, div#fieldsetAddColumn {
 		width: 400px;
 	}
 	
@@ -137,7 +142,7 @@ header h1 input[type="text"], header h1 form {
 			margin-bottom: 3px; 
 		}
 	
-		#formActions fieldset input[type=text] {
+		#formActions fieldset input[type=text], div#fieldsetAddColumn input[type=text], div#fieldsetAddCard input[type=text] {
 			width: 540px;
 			border: 1px solid #CCCCCC;
 			padding: 2px;
