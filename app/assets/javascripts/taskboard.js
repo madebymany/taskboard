@@ -267,20 +267,21 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 	var notes = card.notes ? (new Showdown.converter()).makeHtml(card.notes.escapeHTML()) : "";
 /*	cardLi += $.tag("dt", "Story", { id : "notes", classname : "notes" }); */
 	cardLi += $.tag("dd", notes, { id : "notes", className : "notes" });
-  
+  	
+  	var cardOptions = "";
   	if(card.issue_no){
-		cardLi += $.tag('span', $.tag('a', card.issue_no, { href : card.url, rel : 'external'}) + ": ",	{ className : 'alias' });
+		cardOptions += $.tag('span', $.tag('a', card.issue_no, { href : card.url, rel : 'external'}) + ": ",	{ className : 'alias' });
 	}
-	cardLi += $.tag("span", '#' + card.id, { className : 'label' } );
-	cardLi += $.tag("span", $.tag("span", card.points, { className : 'label label-important points' }), { className : '' });
+	cardOptions += $.tag("span", '#' + card.id, { className : 'label' } );
+	cardOptions += $.tag("span", $.tag("span", card.points, { className : 'label label-important points' }), { className : '' });
 	if(card.users && card.users.length){
 		var usersUl = "";
 		$.each(card.users, function(i, user){
 			usersUl += $.tag("span", $.tag("span", user.username, { className : 'label label-success user' }), { className : '' });
 		});
-		cardLi += $.tag("span", usersUl, { className : 'users'});
+		cardOptions += $.tag("span", usersUl, { className : 'users'});
 	} else {
-		cardLi += $.tag("span", '', { className : 'users'});
+		cardOptions += $.tag("span", '', { className : 'users'});
 	}
 
 	if(card.tag_list && card.tag_list.length){
@@ -289,8 +290,10 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 			tagsUl += $.tag("li", tag.escapeHTML(), { className : 'label' });
 		});
 		tagsUl = $.tag("ul", tagsUl, { className : 'tags', id : 'filterTags' });
-		cardLi += tagsUl;
+		cardOptions += tagsUl;
 	}
+
+	cardLi += $.tag("div", cardOptions, { className : 'options'});
 
 	// build card actions
 	var actionsUl = "";
@@ -903,9 +906,22 @@ TASKBOARD.init = function(){
 		ev.preventDefault();
 	});
 
+	/*
+	$('.actionShowFilterSearch').popover({
+	        html: true,
+	        trigger: 'manual',
+	        placement: 'bottom',
+	        content: function() {
+	        	return $('#fieldsetTags').html();
+	        }
+	});
+	*/
 	$(".actionShowFilterSearch").bind("click", function(ev){
 		$(this).parent().siblings().removeClass("current").end().toggleClass("current");
 		TASKBOARD.form.toggle('#fieldsetTags');
+		
+		//$(this).popover('toggle');
+		
 		ev.preventDefault();
 	});
 	/*

@@ -817,6 +817,7 @@ form #tagsForm {
 }
 
 #filterTags, #filterUsers {
+	overflow: hidden;
   margin-left: 0px;
 	/*overflow: hidden;
 	clear: both;*/
