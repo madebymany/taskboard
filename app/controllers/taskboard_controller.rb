@@ -72,14 +72,14 @@ class TaskboardController < JuggernautSyncController
   end
   
   def reorder_columns
-    column = Column.find(params[:id].to_i)
+    column = Column.find(params[:column_id].to_i)
     before = column.position
     column.insert_at(params[:position].to_i)
     render :json => sync_move_column(column, { :before => before })
   end
 
   def rename_column
-    column = Column.find(params[:id].to_i)
+    column = Column.find(params[:column_id].to_i)
     if not params[:name].empty?
       before = column.name
       column.name = params[:name]
@@ -93,9 +93,9 @@ class TaskboardController < JuggernautSyncController
   def remove_column
     # first remove from list, than delete from db
     # to keep the rest of the list consistent
-    column = Column.find(params[:id].to_i)
+    column = Column.find(params[:column_id].to_i)
     column.remove_from_list
-    Column.delete params[:id].to_i
+    Column.delete params[:column_id].to_i
     render :json => sync_delete_column(column)
   end
   
@@ -146,7 +146,7 @@ class TaskboardController < JuggernautSyncController
   end
 
   def reorder_cards
-    card = Card.find(params[:id].to_i)
+    card = Card.find(params[:card_id].to_i)
     before = "#{card.position} @ #{card.column.name}"
     card.move_to(params[:column_id].to_i, params[:position].to_i)
     render :json => sync_move_card(card, { :before => before })
@@ -155,9 +155,9 @@ class TaskboardController < JuggernautSyncController
   def remove_card
     # first remove from list, than delete from db
     # to keep the rest of the list consistent
-    card = Card.find(params[:id].to_i)
+    card = Card.find(params[:card_id].to_i)
     card.remove_from_list
-    Card.delete params[:id].to_i
+    Card.delete params[:card_id].to_i
     render :json => sync_delete_card(card)
   end
   

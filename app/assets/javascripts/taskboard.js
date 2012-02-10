@@ -1264,17 +1264,17 @@ TASKBOARD.remote = {
 		},
 		moveCard : function(cardId, columnId, position){
 			TASKBOARD.remote.callback("/taskboard/reorder_cards",
-							{ position : position, column_id : columnId, id : cardId });
+							{ position : position, column_id : columnId, card_id : cardId, id : TASKBOARD.id });
 		},
 		moveColumn : function(columnId, position){
 			TASKBOARD.remote.callback("/taskboard/reorder_columns",
-							{ position : position, id : columnId });
+							{ position : position, column_id : columnId, id : TASKBOARD.id });
 		},
 		renameTaskboard : function(name){
 			TASKBOARD.remote.callback('/taskboard/rename_taskboard', { id : TASKBOARD.id, name : name });
 		},
 		renameColumn : function(columnId, name){
-			TASKBOARD.remote.callback('/taskboard/rename_column', { id : columnId, name : name });
+			TASKBOARD.remote.callback('/taskboard/rename_column', { id : TASKBOARD.id, column_id : columnId, name : name });
 		},
 		renameCard : function(cardId, name){
 			TASKBOARD.remote.callback('/card/update_name', { id : cardId, name : name });
@@ -1292,13 +1292,13 @@ TASKBOARD.remote = {
 			TASKBOARD.remote.callback('/card/remove_tag', { id : cardId, tag : tag });
 		},
 		deleteColumn : function(columnId){
-			TASKBOARD.remote.callback('/taskboard/remove_column/', { id: columnId });
+			TASKBOARD.remote.callback('/taskboard/remove_column/', { id : TASKBOARD.id, column_id: columnId });
 		},
 		updateCardHours : function(cardId, hours, updatedAt){
 			TASKBOARD.remote.callback('/card/update_hours/', { id: cardId, hours_left: hours, updated_at: updatedAt });
 		},
 		deleteCard : function(cardId){
-			TASKBOARD.remote.callback('/taskboard/remove_card/', { id: cardId });
+			TASKBOARD.remote.callback('/taskboard/remove_card/', { id : TASKBOARD.id, card_id: cardId });
 		},
 		changeCardColor : function(cardId, color){
 			TASKBOARD.remote.callback('/card/change_color/', { id: cardId, color : color });
