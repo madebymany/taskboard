@@ -472,7 +472,8 @@ span.title {
 		/*height: 1.8em; */
 	}
 	
-	#taskboard .column ol.cards > li h1{
+	#taskboard .column ol.cards > li h1,
+	.card-popover h1 {
 		font-size: 12px;
 		text-transform: uppercase;
 		font-weight: normal;
@@ -487,6 +488,10 @@ span.title {
 	}
 	#taskboard .column ol.cards > li li {
 	  margin: 0;
+	}
+
+	.card-popover {
+		width: 240px;
 	}
 
 

@@ -328,6 +328,34 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 		.bind("dblclick", function(){
 			TASKBOARD.openCard($(this).data('data'));
 		});
+		if ($('body').hasClass('iphone')) {
+			cardLi.popover({
+	        html: true,
+	        title: function() {
+	        	return '<div class="card-popover">Notes</div>';
+		      },
+	        content: function() {
+	        	notes = $(this).data('data').notes ? (new Showdown.converter()).makeHtml(card.notes.escapeHTML()) : "";
+	        	return '<div class="card-popover">'+notes+'</div>';
+	        }
+			});
+		}
+/*
+		.bind("mouseenter", function() {
+			that = $(this);
+			that.popover({
+	        html: true,
+	        trigger: 'manual',
+	        placement: 'right',
+	        content: function() {
+	        	'yep';
+	        }
+			});
+			that.popover('toggle');
+		}).bind("mouseleave", function() {
+			console.log('out');
+		});
+		*/
 	if(card.tag_list && card.tag_list.length){
 		$.each(card.tag_list, function(i, tag){
 			cardLi.addClass('tagged_as_' + tag.toClassName());
@@ -863,11 +891,12 @@ TASKBOARD.init = function(){
 	TASKBOARD.max_zoom = 5;
 	var zoom = function(ev){
 		$('#taskboard').removeClass("zoom_" + TASKBOARD.zoom);
-		TASKBOARD.zoom = TASKBOARD.zoom < TASKBOARD.max_zoom ? TASKBOARD.zoom + 1 : 0;
+		TASKBOARD.zoom = TASKBOARD.zoom < TASKBOARD.max_zoom ? TASKBOARD.zoom + 1 : 2;
+		
 		$('#taskboard').addClass("zoom_" + TASKBOARD.zoom);
 		
 		TASKBOARD.cookie.setTaskboardZoom(TASKBOARD.id, TASKBOARD.zoom);
-		
+		 
 		if(TASKBOARD.zoom < TASKBOARD.max_zoom){
 			$(this).text("Zoom in");
 		} else {
