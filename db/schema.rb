@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20120208143000) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "points",                      :default => 0
-    t.integer  "parent_id"
   end
 
   add_index "cards", ["column_id"], :name => "fk_cards_column_id"

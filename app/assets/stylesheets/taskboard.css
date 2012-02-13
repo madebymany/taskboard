@@ -226,7 +226,7 @@ span.title {
 				background-color: #fff; 
 				position: relative; 
 			/*	overflow: hidden;*/
-
+        background-image: url('/assets/ro_20.png');
 				-moz-border-radius: 5px;
 				-webkit-border-radius: 5px;
 			}
@@ -340,7 +340,12 @@ span.title {
 			#taskboard .column ol.cards li.placeholder {
 			/*	border: 1px dashed #93853C;*/
 				color: #FFFFFF;
-				background-image: url(/assets/chequer.png); 
+				background-color: #ccc;
+				background-image: url(/assets/chequer.png);
+				background-image: url('/assets/ro_20.png');
+				-moz-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+        -webkit-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+        box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
 			}
 
 			#taskboard .column ol.cards li.placeholder span,

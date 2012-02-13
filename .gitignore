@@ -14,3 +14,7 @@ coverage
 
 /deploy/chef/dna/generated.json
 /deploy/chef/dna/aliases.json
+
+db/schema.rb
+
+.gitignore

@@ -1,0 +1,21 @@
+Script started on Mon Feb 13 16:57:42 2012
+[?1034hbash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)
+bash: syntax error near unexpected token `('
+bash-3.2$ u.save!
+bash: u.save!: command not found
+bash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)
+bash: syntax error near unexpected token `('
+bash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)
+bash: syntax error near unexpected token `('
+bash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1);
+bash: syntax error near unexpected token `('
+bash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)[K
+bash: syntax error near unexpected token `('
+bash-3.2$ u = User.new(:username => 'admin', :password => 'password1', :password_confirmation => 'password1', :editor => 1, :is_admin => 1)[K
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ exit
+exit
+
+Script done on Mon Feb 13 16:58:43 2012
