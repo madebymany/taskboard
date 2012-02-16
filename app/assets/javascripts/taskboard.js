@@ -1067,11 +1067,11 @@ TASKBOARD.openCard = function(card){
 	$('#card').remove();
 	var bigCard = TASKBOARD.builder.buildBigCard(card);
 
-	bigCard.appendTo($('.modal-body'));
+	bigCard.appendTo($('#card-modal .modal-body'));
 
 	TASKBOARD.users.addBigCardLinks();
 
-	$('.modal').modal('show');
+	$('#card-modal').modal('show');
 };
   
 $(document).ready(function() {
@@ -1399,6 +1399,9 @@ $.each(["initialized", "connect", "connected", "errorConnecting", "disconnected"
 		"noFlash" : "Flash plugin was not detected! Real time synchronisation will not work."
 	};
 	$(document).bind("juggernaut:" + self, function(){
+		if (self == 'disconnected') {
+			$('#disconnected-modal').modal('show');
+		}
 		$.notify(msgs[self]);
 	});
 });
