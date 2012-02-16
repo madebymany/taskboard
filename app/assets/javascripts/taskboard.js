@@ -1400,7 +1400,7 @@ $.each(["initialized", "connect", "connected", "errorConnecting", "disconnected"
 	};
 	$(document).bind("juggernaut:" + self, function(){
 		if (self == 'disconnected') {
-			$('#disconnected-modal').modal('show');
+			//$('#disconnected-modal').modal('show');
 		}
 		$.notify(msgs[self]);
 	});
