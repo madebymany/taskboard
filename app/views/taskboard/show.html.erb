@@ -21,6 +21,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<title>Taskboard</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<%= stylesheet_link_tag 'bootstrap' %>
 	<%= stylesheet_link_tag 'taskboard' %>
 	<%= stylesheet_link_tag 'print', :media => "print" %>
@@ -153,7 +154,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 
 	</div>
 
-	<div id="card-modal" class="modal hide fade">
+	<div id="card-modal" class="modal hide">
 	    <div class="modal-header">
 	    <a class="close" data-dismiss="modal">×</a>
 	    <h3>Editing card</h3>
@@ -162,7 +163,7 @@ along with Taskboard. If not, see <http://www.gnu.org/licenses/>.
 	    </div>
 	</div>
 
-  <div id="disconnected-modal" class="modal hide fade">
+  <div id="disconnected-modal" class="modal hide">
       <div class="modal-header">
       <h3>You were disconnected from the server</h3>
       </div>

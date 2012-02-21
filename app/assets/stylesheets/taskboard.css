@@ -62,6 +62,11 @@ header h1 input[type="text"], header h1 form {
 	padding: 5px 10px;
 }
 
+.navbar .brand {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: normal;
+}
+
 	h1 a[rel='home'] {
 		font-size: 0.8em;
 		text-decoration: none;
@@ -74,7 +79,7 @@ header h1 input[type="text"], header h1 form {
 		}
 
 	h1 span.title {
-		color: #ffffff;
+		color: #999999 !important;
 	}
 
 	h1 span.title:hover {
@@ -92,6 +97,12 @@ header h1 input[type="text"], header h1 form {
 			line-height: 18px !important;
 			margin: 0px !important;
 			padding: 0px !important;
+		}
+
+		.navbar .nav > li > a {
+			font-family: 'Open Sans', sans-serif;
+			font-size: 16px;
+			font-weight: normal;
 		}
 
 #actions {
@@ -153,6 +164,7 @@ header h1 input[type="text"], header h1 form {
 		}
 /* card title */
 span.title {
+	font-size: 14px;
   font-weight:bold;
   padding-left: 0px;
 }
@@ -161,12 +173,13 @@ span.title {
 	clear:both;
 	margin-left: 0px;
 	overflow:hidden;
-	margin-top: 40px;
+	margin-top: 45px;
 }
 
 	#taskboard .column {
 		list-style: none;
 		float: left;
+		margin-right: 15px;
 	/*	padding: 0 7px 0 0;
 		margin: 45px 0 0 7px;
 		border-right: 1px dashed #CCCCCC;*/
@@ -193,7 +206,7 @@ span.title {
 /* column title */
 		#taskboard .column h2 {
 			text-align: left;
-			padding-left: 10px;
+			padding-left: 0px;
 			font-size: 16px;
 			line-height: 16px;
 		}
@@ -205,24 +218,28 @@ span.title {
 		}
 		
 		#taskboard .column a.deleteColumn {
+			background: url('/assets/icons/icons.png') -3px -1px no-repeat;
+			display: block;
+			height: 10px;
 			position: absolute;
-			top: -3px;
-			right: 5px;
-			margin: 3px;
+			right: 0px;
+			text-indent: -9999px;
+			top: 5px;
+			width: 10px;
 		}
 
 		#taskboard .column ol.cards {
 			margin-left: 0px;
 			min-height:200px;
-			margin-left: 5px;
+			margin-left: 0px;
 		}
 
 			#taskboard .column ol.cards > li {
 				list-style: none;
 				/*min-height: 42px;*/
-				margin-bottom: 5px;
+				margin-bottom: 15px;
 				/*border: 1px solid transparent;*/
-				padding: 5px 12px 5px 5px;
+				padding: 10px;
 				background-color: #fff; 
 				position: relative; 
 			/*	overflow: hidden;*/
@@ -251,7 +268,7 @@ span.title {
 					position: absolute;
 					top: 2px;
 					right: 2px;
-					background-color: #ddd;
+					
 					padding: 2px;
 					border-radius: 2px 2px 2px 2px;
       		-webkit-border-top-left-radius: 2px 2px;
@@ -276,7 +293,22 @@ span.title {
 					}
 
 					#taskboard .column ol.cards li ul.actions li a {
+						background: url('/assets/icons/icons.png') no-repeat;
 						display: block;
+						height: 15px;
+						margin-right: 5px;
+						margin-top: 5px;
+						text-indent: -9999px;
+						width: 15px;
+					}
+					.openCard {
+						background-position: 0px -16px !important;
+					}
+					.deleteCard {
+						background-position: 0px -37px !important;
+					}
+					.changeColor {
+						background-position: 0px -58px !important;
 					}
 				
 				#taskboard .column ol.cards li span.alias {
@@ -293,7 +325,7 @@ span.title {
 					#taskboard .column ol.cards li ul.tags li {
 						display: inline;
 						float: none;
-						margin: 2px 0 0 2px;
+						margin: 2px 5px 0 0px;
 						/*
 						float: left;
 					    line-height: 16px;
@@ -502,8 +534,8 @@ span.title {
 }
 
 .totalpoints {
-	font-size:.7em;
-	padding: 3px 10px;
+	font-size:13px;
+	padding: 3px 0px;
 	margin-bottom: 5px;
 	-moz-background-clip:border;
 	-moz-background-inline-policy:continuous;
@@ -512,7 +544,7 @@ span.title {
 /*-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px ;
 	-moz-box-shadow:0px 0px 3px rgba(0, 0, 0, 0.5);*/
 	/*background:#ddd none repeat scroll 0 0;*/
-	color: #000;
+	color: #666;
 	font-weight:normal;
 }
 
@@ -621,15 +653,24 @@ span.title {
 }
 
 dl#card dd#notes {
+
 		overflow: auto; 
 }
 
+.card dd#notes * {
+	color: #666;
+	font-size: 13px;
+	line-height: 18px;
+}
 dd#notes.notes p {
+	color: #666;
+	font-size: 13px;
+	line-height: 18px;
 	margin-bottom: 1px;
 }
 
 dd#notes.notes ul {
-  margin-left:5px;
+  margin-left:0px;
 }
 
 #card #notes h1 {
@@ -691,6 +732,15 @@ dd#notes.notes ul {
 
 #card .tags {
 	margin: 0px;
+}
+
+.cards .label {
+	background: #666666 !important;
+	margin-right: 5px;
+	text-transform:lowercase !important;
+}
+.cards .label:first-letter {
+	text-transform:uppercase !important;
 }
 
 form #tagsForm {
@@ -797,29 +847,25 @@ form #tagsForm {
 
 #colorPicker {
 	position: absolute;
-	background-color: #FFFFFF;
-	padding-left: 11px;
-	background: url(/assets/tip.png) no-repeat;
+	background: url('/assets/icons/icons.png') center -82px no-repeat;
+	padding-top: 7px;
 }
 
 #colorPicker ol {
-	border:1px solid #b7b7b7;
-	border-left: none;
+	border: 5px solid #000;
 	overflow:hidden; /* for IE6 */
-	background-color: #F7F7F7;
-	padding: 2px;
 	margin:0;
 }
 
 #colorPicker .color {
-	background:url(/assets/jquery/jquery.colorpicker.gif) no-repeat;
+	
 	float:left;
-	width:16px;
-	height:16px;
+	width:25px;
+	height:25px;
 	cursor:pointer;
 	overflow:hidden; /* for IE6 */
-	border:1px solid #666666;
-	margin:1px;
+	border:0px solid #666666;
+	margin:0px;
 }
 
 #colorPicker .checkwht {

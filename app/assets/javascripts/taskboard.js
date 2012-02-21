@@ -412,14 +412,14 @@ TASKBOARD.builder.buildCardFromJSON = function(card){
 				var card = $(this).closest(".cards > li");
 				$.colorPicker({
 						click : function(color){ 
-							$(card).css({ backgroundColor : color});
+							$(card).css({ backgroundColor : color, borderColor : color});
 							$(card).data('data').color = color;
 							TASKBOARD.remote.api.changeCardColor($(card).data('data').id, color);
 						 },
-						colors : ['#F8E9B8', '#8FBDC9', '#BEE075', '#F88FAD', '#B5FA98', '#F8995A','#ffff00','#ffffff', '#ddd'],
-						columns: 5,
-						top : $(this).offset().top - 8,
-						left : $(this).offset().left + 12,
+						colors : ['#f6eee4', '#c5ecf7', '#f9f8a0', '#85f0b9', '#ebd0f9', '#f47751'],
+						columns: 6,
+						top : $(this).offset().top + 15,
+						left : $(this).offset().left - 75,
 						defaultColor : $(card).data('data').color
 					});
 				ev.preventDefault();

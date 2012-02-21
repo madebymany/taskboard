@@ -71,7 +71,7 @@
 		// Simulate click for defaultColor
 		picker.appendTo($('body'));
 		picker.children('ol')
-				.width( (colors.children().width() + 4) * (settings.columns || colors.children().length) )
+				//.width( (colors.children().width() + 4) * (settings.columns || colors.children().length) )
 				.end()
 			.css( { top : settings.top, left : settings.left, bottom : settings.bottom, right : settings.right })
 			.find('.' + settings.defaultColor.substr(1)).each(function(){
