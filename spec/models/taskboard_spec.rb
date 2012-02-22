@@ -85,8 +85,8 @@ describe Taskboard, "while serializing to json" do
 
     firefox_card = cards(:firefox)
 
-    taskboard.to_json.should include_text('"name": "'+taskboard.name+'"')
-    taskboard.to_json.should include_text('"url": "'+firefox_card.url+'"')
+    taskboard.to_json.should include('"name":"'+taskboard.name+'"')
+    taskboard.to_json.should include('"url":"'+firefox_card.url+'"')
   end
 
   it "should include cards with tag list" do
@@ -101,27 +101,27 @@ describe Taskboard, "while serializing to json" do
     taskboard.columns << column
     taskboard.columns.should have(1).records
 
-    taskboard.to_json.should include_text('"tag_list": ["ala", "ma", "kota"]')
+    taskboard.to_json.should include('"tag_list":["ala","ma","kota"]')
   end
 
   it "should include cards with hours left" do
-    taskboards(:first_iteration).to_json.should include_text('hours_left')
+    taskboards(:first_iteration).to_json.should include('hours_left')
   end
 
   it "should include cards with hours updated date" do
-    taskboards(:first_iteration).to_json.should include_text('hours_left_updated')
+    taskboards(:first_iteration).to_json.should include('hours_left_updated')
   end
 
   it "should return card with url" do
     card = cards(:firefox)
-    card.to_json.should include_text('"issue_no": "ISSUE-36')
-    card.to_json.should include_text('"url": "http')
+    card.to_json.should include('"issue_no":"ISSUE-36')
+    card.to_json.should include('"url":"http')
 
     taskboard = taskboards(:first_iteration)
     taskboar_descirption = taskboard.name
 
-    taskboard.to_json.should include_text('"name": "' + taskboar_descirption + '"')
-    taskboard.to_json.should include_text('"url": "http')
+    taskboard.to_json.should include('"name":"' + taskboar_descirption + '"')
+    taskboard.to_json.should include('"url":"http')
   end
   
 end

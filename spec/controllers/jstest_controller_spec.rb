@@ -18,7 +18,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe JstestController do
-  integrate_views
+  render_views
   
   it "should show test results page" do
     get 'index', {}, {:user_id => 1, :editor => true}

@@ -657,7 +657,7 @@ dl#card dd#notes {
 		overflow: auto; 
 }
 
-.card dd#notes * {
+.cards dd#notes * {
 	color: #666;
 	font-size: 13px;
 	line-height: 18px;

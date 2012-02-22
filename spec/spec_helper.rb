@@ -3,18 +3,21 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require File.dirname(__FILE__) + "/argument_matchers"
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  config.include(ArgumentMatchers)
 
   # == Fixtures
   #
@@ -64,42 +67,6 @@ module BeforeAndAfter
 end
 
 Time.send :include , BeforeAndAfter
-
-module Spec
-  module Mocks
-    module ArgumentMatchers
-      class DateAroundMatcher
-
-        # Takes an argument of expected date
-        def initialize(expected)
-          @expected = expected
-        end
-
-        # actual is a date (hopefully) passed to the method by the user.
-        # We'll check if this date is 'around' expected date, where 'around' means
-        # thay don't differ more than a second
-        def ==(actual)
-          if actual.kind_of? Time
-             return (actual - @expected).abs < 1.second
-          else
-            return false
-          end
-        end
-
-        def description
-          "date around #{@expected}"
-        end
-
-      end
-
-      # Usage:
-      #  some_mock.should_receive(:message).with( date_around(Time.now) )
-      def date_around(*args)
-        DateAroundMatcher.new(*args)
-      end
-    end
-  end
-end
 
 module DisableFlashSweeping
   def sweep

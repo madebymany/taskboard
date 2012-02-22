@@ -19,7 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TaskboardController, "while showing taskboards list page" do
 
-  integrate_views
+  render_views
   fixtures :taskboards, :columns, :cards
   
   it "should show list of taskboards" do
@@ -57,12 +57,13 @@ end
 
 describe TaskboardController, "while showing single taskboard page" do
 
-  integrate_views
+  render_views
   fixtures :taskboards, :columns, :cards
   
   before(:each) do
     # TODO: needed because of juggernaut helper
     request.stub!(:session_options).and_return({ :id => 'dummy' })
+    
   end
 
   it "should show empty taskboard" do
@@ -83,7 +84,7 @@ describe TaskboardController, "while showing single taskboard page" do
   it "should include juggernaut snippet with correct channel" do
     get 'show',  { :id => 645 }, {:user_id => 1, :editor => true, :user => User.new(:username => 'tester')}
     response.body.should include('new Juggernaut')
-    response.body.should include('"channels": [645]')
+    response.body.should include('"channels":[645]')
   end
   
   it "should allow fetching whole serialized taskboard" do
@@ -91,7 +92,7 @@ describe TaskboardController, "while showing single taskboard page" do
     Taskboard.should_receive(:find).with(1).and_return(taskboard)
     post 'get_taskboard', { :id => 1 }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text('"name": "this is a taskboard"')
+    response.body.should include('"name": "this is a taskboard"')
   end
   
   it "should return burndown data" do
@@ -102,7 +103,7 @@ describe TaskboardController, "while showing single taskboard page" do
 
     post 'load_burndown', { :id => '1'}, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("1223762400000")
+    response.body.should include("1223762400000")
   end
 
   context "while dealing with taskboard name" do
@@ -115,7 +116,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_rename_taskboard).with(taskboard, hash_including(:before => "old name")).and_return("{ status: 'success' }")
       post 'rename_taskboard', { :id => 3, :name => 'new name' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
       taskboard.name.should eql('new name')
     end
     
@@ -124,7 +125,7 @@ describe TaskboardController, "while showing single taskboard page" do
       Taskboard.should_receive(:find).with(3).and_return(taskboard)
       post 'rename_taskboard', { :id => 3, :name => '' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'error'")
+      response.body.should include("status: 'error'")
       taskboard.name.should eql('old')
     end
 
@@ -140,7 +141,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_add_column).with(new_column).and_return("{ status: 'success' }")
       post 'add_column', { :name => new_column.name, :taskboard_id => new_column.taskboard_id }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
     end
     
     it "should allow removing column" do
@@ -152,7 +153,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_delete_column).with(column).and_return("{ status: 'success' }")
       post 'remove_column', { :id => '56' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
     end
     
     it "should allow column reordering" do
@@ -162,7 +163,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_move_column).with(column, hash_including(:before => 6)).and_return("{ status: 'success' }")
       post 'reorder_columns', { :id => 13, :position => 3 }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
     end
     
     it "should allow column renaming" do
@@ -172,7 +173,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_rename_column).with(column, hash_including(:before => 'Column')).and_return("{ status: 'success' }")
       post 'rename_column', { :id => 42, :name => 'New name' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
       column.name.should == 'New name'
     end
 
@@ -181,7 +182,7 @@ describe TaskboardController, "while showing single taskboard page" do
       Column.should_receive(:find).with(42).and_return(column)
       post 'rename_column', { :id => 42, :name => '' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'error'")
+      response.body.should include("status: 'error'")
       column.name.should eql('Column')
     end
  
@@ -198,7 +199,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_delete_card).with(card).and_return("{ status: 'success' }")
       post 'remove_card', { :id => '34' }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
     end
     
     it "should allow cards reordering" do
@@ -209,7 +210,7 @@ describe TaskboardController, "while showing single taskboard page" do
       controller.should_receive(:sync_move_card).with(card, hash_including(:before)).and_return("{ status: 'success' }")
       post 'reorder_cards', { :id => 13, :column_id => 3, :position => 5 }, {:user_id => 1, :editor => true}
       response.should be_success
-      response.body.should include_text("status: 'success'")
+      response.body.should include("status: 'success'")
     end
   
   end
@@ -234,7 +235,7 @@ end
 
 describe TaskboardController, "while adding new card" do
 
-  integrate_views
+  render_views
   fixtures :taskboards, :columns, :cards
 
   it "should allow adding new card" do
@@ -247,7 +248,7 @@ describe TaskboardController, "while adding new card" do
 
     post 'add_card', { :name => 'Our brand new card', :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'success'")
+    response.body.should include("status: 'success'")
 
     taskboard.cards.size.should eql(1)
   end
@@ -267,7 +268,7 @@ describe TaskboardController, "while adding new card" do
 
     post 'add_card', { :name => 'http://some.url.com/jira/browse/IST-4703', :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'success'")
+    response.body.should include("status: 'success'")
 
     taskboard.cards.size.should eql(1)
   end
@@ -290,7 +291,7 @@ describe TaskboardController, "while adding new card" do
 
     post 'add_card', { :name => 'http://some.url.com/jira/browse/IST-4703', :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status : 'success'")
+    response.body.should include("status : 'success'")
 
     taskboard.cards.size.should eql(1)
   end
@@ -310,7 +311,7 @@ describe TaskboardController, "while adding new card" do
     post 'add_card', { :name => 'http://some.url.com/jira/browse/IST-4703',
       :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'success'")
+    response.body.should include("status: 'success'")
 
     taskboard.cards.size.should eql(3)
   end
@@ -326,7 +327,7 @@ describe TaskboardController, "while adding new card" do
 
     post 'add_card', { :name => 'http://example.com', :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'success'")
+    response.body.should include("status: 'success'")
 
     taskboard.cards.size.should eql(1)
   end
@@ -344,7 +345,7 @@ describe TaskboardController, "while adding new card" do
 
     post 'add_card', { :name => 'Our brand new card', :taskboard_id => taskboard.id, :column_id => ''}, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'success'")
+    response.body.should include("status: 'success'")
 
     taskboard.cards.size.should eql(1)
   end
@@ -362,7 +363,7 @@ describe TaskboardController, "while adding new card" do
     post 'add_card', { :name => 'http://some.url.com/jira/browse/IST-4703',
       :taskboard_id => taskboard.id, :column_id => column.id }, {:user_id => 1, :editor => true}
     response.should be_success
-    response.body.should include_text("status: 'error'")
+    response.body.should include("status: 'error'")
     
   end
 end
